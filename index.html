@@ -2,385 +2,416 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Metal Scanner (Data Matrix / DPM) — Test</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Service Receipt</title>
 <style>
-:root{
-  --navy:#0d1b3e;--navy2:#162250;--purple:#7c3aed;--purple2:#a855f7;
-  --green:#10b981;--red:#ef4444;--accent:#f59e0b;--border:#d1daf7;
-  --text:#1e293b;--muted:#64748b;--r:14px;--rs:8px;
-}
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:linear-gradient(135deg,#1a1033,#0d1b3e 60%,#162250);min-height:100vh;color:var(--text);-webkit-tap-highlight-color:transparent;padding-bottom:40px}
-.wrap{max-width:560px;margin:0 auto;padding:14px}
-.header{display:flex;align-items:center;gap:10px;padding:14px 4px 10px;color:#fff}
-.header .logo{width:40px;height:40px;background:linear-gradient(135deg,var(--purple),var(--purple2));border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
-.header h1{font-size:16px;font-weight:800;letter-spacing:.3px}
-.header p{font-size:10px;color:rgba(255,255,255,.55);text-transform:uppercase;letter-spacing:.8px;margin-top:1px}
-.card{background:#fff;border-radius:var(--r);box-shadow:0 4px 24px rgba(0,0,0,.25);padding:14px;margin-bottom:12px;border:1px solid rgba(209,218,247,.5)}
-.card-title{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1.1px;margin-bottom:11px;display:flex;align-items:center;gap:6px}
-.card-title::before{content:'';width:3px;height:13px;background:var(--purple);border-radius:2px}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:12px 16px;font-size:13px;font-weight:600;border:none;border-radius:var(--rs);cursor:pointer;transition:transform .1s,opacity .18s;white-space:nowrap;touch-action:manipulation}
-.btn:active{transform:scale(.96)}
-.btn:disabled{opacity:.5;cursor:not-allowed}
-.btn-purple{background:linear-gradient(135deg,var(--purple),var(--purple2));color:#fff;box-shadow:0 3px 12px rgba(124,58,237,.3)}
-.btn-outline{background:transparent;border:1.5px solid var(--border);color:var(--text)}
-.btn-amber{background:linear-gradient(135deg,var(--accent),#f97316);color:var(--navy)}
-.btn-row{display:flex;gap:8px;margin-bottom:8px}
-.btn-row .btn{flex:1}
+  :root{
+    --teal:#1f9d8f; --teal-dark:#178074; --teal-soft:#e8f5f3;
+    --bg:#f4f7f6; --card:#ffffff; --line:#e3e9e8;
+    --text:#2b3a39; --muted:#7d8c8a; --ok:#1f9d8f; --err:#d9534f;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; font-family:'Segoe UI',Arial,sans-serif; background:var(--bg);
+    color:var(--text); display:flex; justify-content:center; padding:28px 16px;
+  }
+  .card{
+    background:var(--card); width:100%; max-width:560px; border-radius:18px;
+    box-shadow:0 8px 30px rgba(31,157,143,.10); overflow:hidden;
+  }
+  .head{
+    background:linear-gradient(135deg,var(--teal),var(--teal-dark));
+    color:#fff; padding:28px 32px;
+  }
+  .head .logo{
+    width:42px; height:42px; border-radius:12px; background:rgba(255,255,255,.18);
+    display:flex; align-items:center; justify-content:center; font-size:20px; margin-bottom:14px;
+  }
+  .head h1{margin:0; font-size:21px; font-weight:600; letter-spacing:.2px;}
+  .head p{margin:6px 0 0; font-size:13px; opacity:.92;}
+  .body{padding:28px 32px;}
+  .field{margin-bottom:20px;}
+  label{display:block; font-weight:600; margin-bottom:7px; font-size:13.5px; color:var(--text);}
+  .req{color:var(--err);}
+  input{
+    width:100%; padding:12px 14px; border:1px solid var(--line); border-radius:11px;
+    font-size:15px; background:#fbfdfc; color:var(--text); transition:.15s;
+  }
+  input:focus{outline:none; border-color:var(--teal); box-shadow:0 0 0 3px rgba(31,157,143,.14); background:#fff;}
+  input[readonly]{background:#eef3f2; color:var(--muted); cursor:not-allowed;}
+  .joinrow{display:flex;}
+  .joinrow .pre{
+    background:#eef3f2; border:1px solid var(--line); border-right:none;
+    padding:12px 14px; border-radius:11px; white-space:nowrap; color:var(--muted);
+    font-size:15px; width:100%; letter-spacing:.5px;
+  }
+  button{
+    width:100%; padding:15px; background:var(--teal); color:#fff; border:none;
+    border-radius:12px; font-size:16px; font-weight:600; cursor:pointer; margin-top:8px;
+    transition:.15s;
+  }
+  button:hover{background:var(--teal-dark);}
+  button:disabled{opacity:.6; cursor:default;}
+  .note{font-size:11.5px; color:var(--muted); margin-top:20px; text-align:center; line-height:1.5;}
+  .msg{margin-top:18px; padding:13px 15px; border-radius:11px; font-weight:600; font-size:14px; display:none;}
+  .msg.ok{background:var(--teal-soft); color:var(--ok); display:block;}
+  .msg.err{background:#fbe9e8; color:var(--err); display:block;}
 
-#camBox{display:none;border-radius:var(--r);overflow:hidden;background:#0a0a0f;position:relative;margin-bottom:10px}
-.cam-hdr{display:flex;align-items:center;justify-content:space-between;padding:10px 14px 0;position:relative;z-index:5}
-.cam-hdr span{font-size:12px;font-weight:700;color:#fff;display:flex;align-items:center;gap:6px}
-.pulse{width:8px;height:8px;background:var(--purple2);border-radius:50%;animation:pulse 1.2s infinite}
-@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.8)}}
-#closeCam{background:rgba(255,255,255,.15);color:#fff;border:none;border-radius:50%;width:28px;height:28px;font-size:17px;cursor:pointer}
-.video-wrap{position:relative;width:100%;height:300px;overflow:hidden}
-#video{width:100%;height:100%;object-fit:cover;display:block}
-.win{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:200px;height:200px;box-shadow:0 0 0 9999px rgba(0,0,0,.5);border-radius:6px;z-index:3}
-.corner{position:absolute;width:22px;height:22px;border-color:var(--purple2);border-style:solid}
-.corner.tl{top:-1px;left:-1px;border-width:3px 0 0 3px;border-radius:5px 0 0 0}
-.corner.tr{top:-1px;right:-1px;border-width:3px 3px 0 0;border-radius:0 5px 0 0}
-.corner.bl{bottom:-1px;left:-1px;border-width:0 0 3px 3px;border-radius:0 0 0 5px}
-.corner.br{bottom:-1px;right:-1px;border-width:0 3px 3px 0;border-radius:0 0 5px 0}
-.win-label{position:absolute;bottom:-24px;left:0;right:0;text-align:center;font-size:10px;font-weight:600;color:rgba(255,255,255,.5);letter-spacing:1px;text-transform:uppercase;z-index:5}
-.cam-controls{display:flex;gap:8px;padding:10px 14px;background:#0a0a0f}
-.cam-controls .btn{flex:1;font-size:12px;padding:10px}
-.fb{text-align:center;padding:8px 12px 10px;font-size:12px;min-height:32px;color:rgba(255,255,255,.6);background:#0a0a0f}
-#flash{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none;z-index:9;transition:opacity .05s}
-#flash.pop{opacity:.35}
-.zoom-row{display:flex;align-items:center;gap:10px;padding:0 14px 10px;background:#0a0a0f}
-.zoom-row label{font-size:10px;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.7px}
-.zoom-row input[type=range]{flex:1}
+  /* ───── UID scanner additions (kept in the same teal UI) ───── */
+  .scan-btn{
+    width:100%; padding:13px; background:#fff; color:var(--teal); border:1.5px solid var(--teal);
+    border-radius:11px; font-size:14.5px; font-weight:600; cursor:pointer; margin-top:0;
+    display:flex; align-items:center; justify-content:center; gap:8px; transition:.15s;
+  }
+  .scan-btn:hover{background:var(--teal-soft);}
+  .uid-row{display:flex; gap:8px; align-items:stretch;}
+  .uid-row input{flex:1;}
+  .uid-row .scan-btn{width:auto; white-space:nowrap; margin-top:0; padding:12px 16px;}
 
-#previews{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
-#previews .pv{text-align:center}
-#previews canvas{width:90px;height:90px;border:2px solid var(--border);border-radius:8px;background:#000}
-#previews .pv div{font-size:9px;color:var(--muted);margin-top:2px}
-
-.result-ok{background:rgba(16,185,129,.08);border:1.5px solid var(--green);border-radius:var(--rs);padding:12px;margin-bottom:8px}
-.result-ok .lbl{font-size:10px;color:#059669;text-transform:uppercase;letter-spacing:.7px;font-weight:700;margin-bottom:4px}
-.result-ok .val{font-family:ui-monospace,monospace;font-size:15px;font-weight:700;color:var(--navy);word-break:break-all}
-.lookup-box{margin-top:8px;padding:10px 12px;border-radius:var(--rs);font-size:13px}
-.lookup-found{background:rgba(26,86,219,.07);border:1px solid rgba(26,86,219,.25)}
-.lookup-none{background:rgba(239,68,68,.07);border:1px solid rgba(239,68,68,.25);color:var(--red)}
-.log{font-family:ui-monospace,monospace;font-size:11px;color:var(--muted);background:#f8faff;border:1px solid var(--border);border-radius:8px;padding:10px;max-height:160px;overflow:auto;white-space:pre-wrap}
-.tip{font-size:11px;color:var(--muted);line-height:1.5;background:#fffbeb;border:1px solid #fcd34d;border-radius:8px;padding:10px 12px;margin-bottom:10px}
-.tip b{color:#92400e}
-.status{font-size:11px;padding:5px 11px;border-radius:14px;font-weight:600;display:inline-block}
-.status.loading{background:rgba(245,158,11,.12);color:#b45309}
-.status.ready{background:rgba(16,185,129,.12);color:#059669}
-.status.err{background:rgba(239,68,68,.12);color:var(--red)}
+  #scanWrap{display:none; margin-top:14px; border:1px solid var(--line); border-radius:14px; overflow:hidden; background:#0a0a0f;}
+  .scan-top{display:flex; align-items:center; justify-content:space-between; padding:10px 14px; background:#0e1413;}
+  .scan-top .t{display:flex; align-items:center; gap:7px; color:#fff; font-size:13px; font-weight:600;}
+  .pulse{width:8px; height:8px; border-radius:50%; background:var(--teal); animation:pulse 1.2s infinite;}
+  @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.8)}}
+  #scanClose{background:rgba(255,255,255,.16); color:#fff; border:none; width:28px; height:28px; border-radius:50%; font-size:17px; line-height:1; cursor:pointer; padding:0; margin:0; display:flex; align-items:center; justify-content:center;}
+  #scanClose:hover{background:var(--err);}
+  .video-wrap{position:relative; width:100%; height:280px; overflow:hidden; background:#000;}
+  #uidVideo{width:100%; height:100%; object-fit:cover; display:block;}
+  .win{position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:190px; height:190px; box-shadow:0 0 0 9999px rgba(0,0,0,.5); border-radius:6px; z-index:3;}
+  .corner{position:absolute; width:22px; height:22px; border-color:var(--teal); border-style:solid;}
+  .corner.tl{top:-1px;left:-1px;border-width:3px 0 0 3px;border-radius:5px 0 0 0;}
+  .corner.tr{top:-1px;right:-1px;border-width:3px 3px 0 0;border-radius:0 5px 0 0;}
+  .corner.bl{bottom:-1px;left:-1px;border-width:0 0 3px 3px;border-radius:0 0 0 5px;}
+  .corner.br{bottom:-1px;right:-1px;border-width:0 3px 3px 0;border-radius:0 0 5px 0;}
+  .win-label{position:absolute; bottom:-22px; left:0; right:0; text-align:center; font-size:9.5px; font-weight:600; color:rgba(255,255,255,.55); letter-spacing:1px; text-transform:uppercase; z-index:5;}
+  #uidFlash{position:absolute; inset:0; background:#fff; opacity:0; pointer-events:none; z-index:9; transition:opacity .05s;}
+  #uidFlash.pop{opacity:.35;}
+  .zoom-row{display:flex; align-items:center; gap:10px; padding:10px 14px 0; background:#0a0a0f;}
+  .zoom-row label{margin:0; font-size:10px; color:rgba(255,255,255,.6); text-transform:uppercase; letter-spacing:.7px; font-weight:600;}
+  .zoom-row input[type=range]{flex:1; padding:0; border:none; background:transparent; box-shadow:none;}
+  .scan-ctrls{display:flex; gap:8px; padding:12px 14px;}
+  .scan-ctrls button{margin-top:0; padding:11px; font-size:13px;}
+  .ctrl-torch{background:#243230; color:#fff;}
+  .ctrl-torch:hover{background:#2f413e;}
+  .scan-fb{text-align:center; padding:6px 12px 12px; font-size:12px; min-height:30px; color:rgba(255,255,255,.6);}
+  .scan-status{font-size:11px; padding:4px 12px 10px; text-align:center; color:rgba(255,255,255,.45);}
 </style>
 </head>
 <body>
-<div class="wrap">
-
-  <div class="header">
-    <div class="logo">🔬</div>
-    <div>
-      <h1>Metal Scanner — Data Matrix / DPM</h1>
-      <p>Standalone decode test</p>
-    </div>
-  </div>
-
   <div class="card">
-    <div class="card-title">Engine Status</div>
-    <span id="engineStatus" class="status loading">⏳ Loading decode engine…</span>
-    <div class="tip" style="margin-top:10px">
-      <b>The mark is a Data Matrix dot-peen (DPM) on steel — not a QR.</b> Whether it reads depends mostly on capture:
-      <br>• Use <b>soft, angled light</b> — cover the LED with a tissue to diffuse it; direct glare blocks the read.
-      <br>• <b>Fill the purple box</b>, hold steady, let it focus, pinch-zoom in.
-      <br>• Leave it scanning — a clean frame wins. Tap <b>Capture Frame</b> on the clearest view.
+    <div class="head">
+      <div class="logo">&#9201;</div>
+      <h1>Service Receipt</h1>
+      <p>AKAI Distributors &mdash; submit a new service entry</p>
     </div>
-  </div>
-
-  <div class="card">
-    <div class="card-title">Scanner</div>
-    <div class="btn-row">
-      <button class="btn btn-purple" id="startBtn" onclick="startCam()" disabled>▦ Start Camera</button>
-      <button class="btn btn-outline" id="fileBtn" onclick="document.getElementById('fileInput').click()" disabled>🖼️ Test an Image</button>
-    </div>
-    <input type="file" id="fileInput" accept="image/*" style="display:none" onchange="decodeFile(event)">
-
-    <div id="camBox">
-      <div class="cam-hdr">
-        <span><div class="pulse"></div>Live — scanning…</span>
-        <button id="closeCam" onclick="stopCam()">×</button>
+    <div class="body">
+      <div class="field">
+        <label>SRF Number <span class="req">*</span></label>
+        <input id="srf" placeholder="Enter SRF number" autocomplete="off">
       </div>
-      <div class="video-wrap">
-        <video id="video" autoplay playsinline muted></video>
-        <div class="win">
-          <div class="corner tl"></div><div class="corner tr"></div>
-          <div class="corner bl"></div><div class="corner br"></div>
-          <div class="win-label">Align code inside</div>
+
+      <div class="field">
+        <label>Date <span class="req">*</span></label>
+        <input id="date" type="date">
+      </div>
+
+      <div class="field">
+        <label>Dealer Name <span class="req">*</span></label>
+        <input id="dealer" list="dealerList" placeholder="Start typing dealer name" autocomplete="off">
+        <datalist id="dealerList"></datalist>
+      </div>
+
+      <div class="field">
+        <label>Sales Executive <span class="req">*</span></label>
+        <input id="sales" list="salesList" placeholder="Start typing name" autocomplete="off">
+        <datalist id="salesList"></datalist>
+      </div>
+
+      <div class="field">
+        <label>D.O.P <span class="req">*</span></label>
+        <input id="dop" list="dopList" placeholder="Stock, PGD, or type your own" autocomplete="off">
+        <datalist id="dopList">
+          <option value="Stock"></option>
+          <option value="PGD"></option>
+        </datalist>
+      </div>
+
+      <div class="field">
+        <label>Variant Number <span class="req">*</span></label>
+        <input id="variant" placeholder="Enter variant number" autocomplete="off">
+      </div>
+
+      <div class="field">
+        <label>Complain <span class="req">*</span></label>
+        <input id="complain" list="complainList" placeholder="Start typing complain" autocomplete="off">
+        <datalist id="complainList">
+          <option value="STRAP BROKEN"></option><option value="STOP"></option>
+          <option value="SPEAKER ISSUE"></option><option value="RUNNING SLOW"></option>
+          <option value="NOTIFICATION ISSUE"></option><option value="M.G CHANGE"></option>
+          <option value="LOCK PROBLEM"></option><option value="LIGHT ISSUE"></option>
+          <option value="HANDS PROBLEM"></option><option value="DISPLAY PROBLEM"></option>
+          <option value="DIGITAL PROBLEM"></option><option value="DAY DATE PROBLEM"></option>
+          <option value="DAIL SPOT"></option><option value="CROWN ISSUE"></option>
+          <option value="CHARGING ISSUE"></option><option value="CHAIN DISCOLOUR"></option>
+          <option value="CASE/CHAIN DISCOLOUR"></option><option value="CASE STONE MISSING"></option>
+          <option value="CASE DISCOLOUR"></option><option value="BEZEL MISSING/LOOSE"></option>
+          <option value="BATTARY DRAINING VERY FAST"></option>
+        </datalist>
+      </div>
+
+      <div class="field">
+        <label>Job Offer <span class="req">*</span></label>
+        <div class="joinrow">
+          <span class="pre" id="jobPre"></span>
         </div>
-        <div id="flash"></div>
       </div>
-      <div class="zoom-row" id="zoomRow" style="display:none">
-        <label>Zoom</label>
-        <input type="range" id="zoom" min="1" max="5" step="0.1" value="1" oninput="setZoom(this.value)">
+
+      <!-- ───── UID Number + Scanner (added below Job Offer) ───── -->
+      <div class="field">
+        <label>UID Number</label>
+        <div class="uid-row">
+          <input id="uid" placeholder="Scan or type UID" autocomplete="off">
+          <button type="button" class="scan-btn" id="scanOpenBtn" onclick="openUidScanner()">
+            <span style="font-size:16px;">&#9974;</span> Scan UID
+          </button>
+        </div>
+
+        <div id="scanWrap">
+          <div class="scan-top">
+            <span class="t"><span class="pulse"></span> UID Scanner</span>
+            <button id="scanClose" onclick="closeUidScanner()" title="Close">&times;</button>
+          </div>
+          <div class="video-wrap">
+            <video id="uidVideo" autoplay playsinline muted></video>
+            <div class="win">
+              <div class="corner tl"></div><div class="corner tr"></div>
+              <div class="corner bl"></div><div class="corner br"></div>
+              <div class="win-label">Align code inside</div>
+            </div>
+            <div id="uidFlash"></div>
+          </div>
+          <div class="zoom-row" id="uidZoomRow" style="display:none;">
+            <label>Zoom</label>
+            <input type="range" id="uidZoom" min="1" max="5" step="0.1" value="1" oninput="setUidZoom(this.value)">
+          </div>
+          <div class="scan-ctrls">
+            <button type="button" class="ctrl-torch" id="uidTorchBtn" onclick="toggleUidTorch()">&#128294; Torch</button>
+          </div>
+          <div class="scan-fb" id="uidFb">Point camera at the code</div>
+          <div class="scan-status" id="uidStatus">Loading scanner engine…</div>
+        </div>
       </div>
-      <div class="cam-controls">
-        <button class="btn btn-amber" onclick="captureFrame()">📸 Capture Frame</button>
-        <button class="btn btn-outline" id="torchBtn" onclick="toggleTorch()" style="color:#fff;border-color:rgba(255,255,255,.3)">🔦 Torch</button>
-      </div>
-      <div class="fb" id="fb">Point at the metal code</div>
+
+      <button id="submitBtn" onclick="submitForm()">Submit</button>
+      <div class="msg" id="msg"></div>
+      <div class="note">This content is securely sent to AKAI Distributors service system.</div>
     </div>
   </div>
 
-  <div class="card" id="resultCard" style="display:none">
-    <div class="card-title">Result</div>
-    <div id="resultBox"></div>
-  </div>
+<script>
+  // ───── CONFIG: paste your Apps Script Web App URL below ─────
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzyegqh7qxr8MF08nze2E4iTvt-fIIc4aWZRAAI4hP5XBPDTrfPeQAHnVQE5DuB3Xxj/exec";
+  const JOB_PREFIX = "JOAE34526270";
+  // ─────────────────────────────────────────────────────────────
 
-  <div class="card">
-    <div class="card-title">Processed Frames (debug)</div>
-    <div id="previews"><span style="font-size:11px;color:var(--muted)">Variants tried on the last frame show here.</span></div>
-  </div>
+  const DEALERS = ["A.C BANERJEE & SONS","AKAI DISTRIBUTORS","AKAI ELECTRONICS","ANANDA WATCH CO.","ASHALATA WATCH","BANIK WATCH","BASAK RADIO & WATCH","BERIWAL DISTRIBUTOR","BISHNU WATCH CO","BUNTY WATCH CO","CALCUTTA WATCH TRADING CO","CAPITAL WATCH CO. (DHP)","CHATTERJEE WATCH CO.","EASTERN WATCH CO.","FASHION SQUARE","GANESH WATCH CO","GHARI HOUSE","GHARI MAHAL ( BLG)","GHARI MAHAL (MLD)","GUPTA ELECTRONICS","GUPTA WATCH CO.","HIND WATCH CO.","HIND WATCH CO. (RAI)","JANATA WATCH CO.","JAY GURU TIME CO.","KOHINOOR WATCH MAKERS","LITON WATCH CO","M.B. WATCH ENTERPRISE","M/s B.ROY","M/S SONY TIMES","MANGALDEEP","MAPLE WATCH WORLD","MAYA WATCH CO","MAZUMDAR WATCH","MODERN WATCH CO","MUKUL WATCH CO","NEW GENEVA WATCH CO.","NEW RATAN WATCH CO.","NEW RUBY WATCH","NEW TIME AND SOUND","NORTH BENGAL WATCH & ELECTRICALS","ORIENT GLOBAL PVT LTD(RAI)","ORIENT GLOBAL PVT.LTD.(ALP)","ORIENT WATCH & RADIO CO","PANDIT SUDAMA MISHRA","PAUL BROTHER","PAUL WATCH CO","POPULAR WATCH CO.","PRANAB & BROTHERS","PRISTINE","PURANMAL RADHAKISHAN","RAHUL ENTERPRISE","RAJ KUMARI DEVI","RAJ WATCH CO (SLG)","RAJ WATCH CO.","REGENT WATCH CO.","ROYAL WATCH CO (SLG)","ROYAL'S COLLECTION","RUBY WATCH CO (D)","SAHA ELECTRONICS","SAHA WATCH CO.","SARKAR WATCH CENTRE","SARWAN WATCH CENTER","SIDARTH COMMUNICATION","SINGTAM WATCH HOUSE","SOUMIK ENTERPRISE","SRI KRISHNA WATCH CO.","STYLO","SWISS WATCH CO","THE MAPLE","TIME CENTRE","TIME HOUSE","TIME HOUSE (MATIGARA)","TIME HOUSE & OPTICALS","TIME KING","TIME MONARCH","UNION ENTERPRISE","WATCH AND OPTIC CENTRE"];
+  const SALES = ["SAMARENDRA CHANDRA SARKA","AJAY SINGHA","SOMEN DAS","CHANDAN DAS"];
 
-  <div class="card">
-    <div class="card-title">Log</div>
-    <div class="log" id="log">Initializing…</div>
-  </div>
+  document.getElementById('jobPre').textContent = JOB_PREFIX;
+  (function(){
+    var dl=document.getElementById('dealerList'); DEALERS.forEach(function(x){var o=document.createElement('option');o.value=x;dl.appendChild(o);});
+    var sl=document.getElementById('salesList'); SALES.forEach(function(x){var o=document.createElement('option');o.value=x;sl.appendChild(o);});
+    document.getElementById('date').value = new Date().toISOString().slice(0,10);
+  })();
 
-</div>
+  function val(id){ return document.getElementById(id).value.trim(); }
 
+  function submitForm(){
+    var msg=document.getElementById('msg');
+    var payload = {
+      srf: val('srf'),
+      date: val('date'),
+      dealer: val('dealer'),
+      sales: val('sales'),
+      dop: val('dop'),
+      variant: val('variant'),
+      complain: val('complain'),
+      joboffer: JOB_PREFIX,
+      uid: val('uid')
+    };
+
+    if(!payload.srf||!payload.date||!payload.dealer||!payload.sales||!payload.dop||!payload.variant||!payload.complain){
+      msg.className='msg err'; msg.textContent='Please fill all required fields.'; return;
+    }
+
+    var btn=document.getElementById('submitBtn');
+    btn.disabled=true; btn.textContent='Submitting...';
+    msg.style.display='none';
+
+    fetch(SCRIPT_URL, { method:'POST', body: JSON.stringify(payload) })
+      .then(function(r){ return r.json(); })
+      .then(function(res){
+        if(res.status==='ok'){ msg.className='msg ok'; msg.textContent='Submitted successfully. Thank you!'; resetForm(); }
+        else { msg.className='msg err'; msg.textContent='Error: '+(res.message||'try again'); }
+      }).catch(function(){
+        msg.className='msg ok'; msg.textContent='Submitted. Thank you!'; resetForm();
+      }).finally(function(){
+        btn.disabled=false; btn.textContent='Submit';
+      });
+  }
+
+  function resetForm(){
+    ['srf','variant','dealer','sales','dop','complain','uid'].forEach(function(id){document.getElementById(id).value='';});
+    document.getElementById('date').value=new Date().toISOString().slice(0,10);
+  }
+</script>
+
+<!-- ───── UID Data Matrix scanner engine (module) ───── -->
 <script type="module">
-// CORRECT, VERIFIED API: readBarcodesFromImageData / getZXingModule / setZXingModuleOverrides
-import {
-  readBarcodesFromImageData,
-  getZXingModule,
-  setZXingModuleOverrides
-} from "https://cdn.jsdelivr.net/npm/zxing-wasm@1.3.4/dist/es/reader/index.js";
+  import {
+    readBarcodesFromImageData,
+    getZXingModule,
+    setZXingModuleOverrides
+  } from "https://cdn.jsdelivr.net/npm/zxing-wasm@1.3.4/dist/es/reader/index.js";
 
-const API_URL = "https://script.google.com/macros/s/AKfycbz_VAjxgrMJHPYWmJQAVJKiHtPo7z705wPVNMMXQk0cNj1PcU-9YZ9f7MyjNdP3OjRC/exec";
+  const $ = (id)=>document.getElementById(id);
+  let engineReady=false;
 
-const $ = (id)=>document.getElementById(id);
-const log = (m)=>{const el=$('log');el.textContent=(new Date().toLocaleTimeString()+'  '+m+'\n')+el.textContent;};
-
-let engineReady=false;
-
-setZXingModuleOverrides({
-  locateFile:(path,prefix)=>{
-    if(path.endsWith('.wasm'))
-      return "https://cdn.jsdelivr.net/npm/zxing-wasm@1.3.4/dist/reader/"+path;
-    return prefix+path;
-  }
-});
-
-(async()=>{
-  try{
-    log('Loading WASM module…');
-    await getZXingModule();
-    engineReady=true;
-    $('engineStatus').className='status ready';
-    $('engineStatus').textContent='✅ Engine ready (Data Matrix + DPM)';
-    $('startBtn').disabled=false;
-    $('fileBtn').disabled=false;
-    log('Engine ready.');
-  }catch(e){
-    $('engineStatus').className='status err';
-    $('engineStatus').textContent='⚠ Engine failed to load';
-    log('Engine load error: '+(e&&e.message||e));
-  }
-})();
-
-const READ_OPTS = {
-  formats:["DataMatrix"],
-  tryHarder:true,
-  tryRotate:true,
-  tryInvert:true,
-  tryDownscale:true,
-  binarizer:"LocalAverage",
-  maxNumberOfSymbols:1
-};
-
-async function decodeImageData(imgData){
-  try{
-    const res=await readBarcodesFromImageData(imgData, READ_OPTS);
-    if(res&&res.length&&res[0].text) return res[0].text;
-  }catch(e){}
-  return null;
-}
-
-// ─── CAMERA ───
-let stream=null, scanLoop=null, track=null, torchOn=false, busy=false;
-let lastHit="", lastHitTime=0;
-
-window.startCam = async ()=>{
-  if(!engineReady){ log('Engine not ready yet.'); return; }
-  $('camBox').style.display='block';
-  if(stream) return;
-  try{
-    stream = await navigator.mediaDevices.getUserMedia({
-      video:{ facingMode:{ideal:"environment"}, width:{ideal:1920}, height:{ideal:1080} }
-    });
-    const v=$('video'); v.srcObject=stream; await v.play();
-    track = stream.getVideoTracks()[0];
-    const caps = track.getCapabilities ? track.getCapabilities() : {};
-    if(caps.focusMode && caps.focusMode.includes && caps.focusMode.includes('continuous')){
-      try{ await track.applyConstraints({advanced:[{focusMode:'continuous'}]}); }catch(e){}
+  setZXingModuleOverrides({
+    locateFile:(path,prefix)=>{
+      if(path.endsWith('.wasm'))
+        return "https://cdn.jsdelivr.net/npm/zxing-wasm@1.3.4/dist/reader/"+path;
+      return prefix+path;
     }
-    if(caps.zoom){ const z=$('zoom'); z.min=caps.zoom.min; z.max=caps.zoom.max; z.step=(caps.zoom.step||0.1); z.value=caps.zoom.min; $('zoomRow').style.display='flex'; }
-    log('Camera started. '+(track.label||''));
-    startLoop();
-  }catch(e){ log('Camera error: '+(e&&e.message||e)); $('fb').textContent='❌ Camera denied'; }
-};
-window.stopCam = ()=>{
-  if(scanLoop){cancelAnimationFrame(scanLoop);scanLoop=null;}
-  if(stream){stream.getTracks().forEach(t=>t.stop());stream=null;}
-  $('video').srcObject=null; $('camBox').style.display='none'; track=null; torchOn=false;
-};
-window.setZoom = (val)=>{ if(track) track.applyConstraints({advanced:[{zoom:Number(val)}]}).catch(()=>{}); };
-window.toggleTorch = async ()=>{
-  if(!track) return;
-  const caps=track.getCapabilities?track.getCapabilities():{};
-  if(!caps.torch){ log('Torch not supported by this camera.'); return; }
-  torchOn=!torchOn;
-  try{ await track.applyConstraints({advanced:[{torch:torchOn}]}); log('Torch '+(torchOn?'ON':'OFF')); }
-  catch(e){ log('Torch error: '+(e&&e.message||e)); }
-};
-
-function startLoop(){
-  const v=$('video');
-  const tick=async()=>{
-    if(!stream) return;
-    if(!busy && engineReady && v.readyState>=2 && v.videoWidth>0){
-      busy=true;
-      try{ await attemptDecode(getRoiCanvas(v), false); }catch(e){}
-      busy=false;
-    }
-    scanLoop=requestAnimationFrame(tick);
-  };
-  tick();
-}
-
-function getRoiCanvas(video){
-  const vw=video.videoWidth, vh=video.videoHeight;
-  const side=Math.min(vw,vh)*0.55;
-  const sx=(vw-side)/2, sy=(vh-side)/2;
-  const out=document.createElement('canvas');
-  const target=540; out.width=target; out.height=target;
-  const ctx=out.getContext('2d',{willReadFrequently:true});
-  ctx.imageSmoothingEnabled=true; ctx.imageSmoothingQuality='high';
-  ctx.drawImage(video, sx,sy,side,side, 0,0,target,target);
-  return out;
-}
-
-// ─── PREPROCESSING ───
-function cloneCv(cv){const n=document.createElement('canvas');n.width=cv.width;n.height=cv.height;n.getContext('2d',{willReadFrequently:true}).drawImage(cv,0,0);return n;}
-function getID(cv){return cv.getContext('2d',{willReadFrequently:true}).getImageData(0,0,cv.width,cv.height);}
-function putID(cv,id){cv.getContext('2d',{willReadFrequently:true}).putImageData(id,0,0);return cv;}
-function toGray(cv){const id=getID(cv),p=id.data;for(let i=0;i<p.length;i+=4){const g=(p[i]*.299+p[i+1]*.587+p[i+2]*.114)|0;p[i]=p[i+1]=p[i+2]=g;}return putID(cv,id);}
-function contrast(cv){const id=getID(cv),p=id.data;let mn=255,mx=0;for(let i=0;i<p.length;i+=4){if(p[i]<mn)mn=p[i];if(p[i]>mx)mx=p[i];}const r=Math.max(1,mx-mn);for(let i=0;i<p.length;i+=4){const v=((p[i]-mn)*255/r)|0;p[i]=p[i+1]=p[i+2]=v;}return putID(cv,id);}
-function otsu(cv,inv){const id=getID(cv),p=id.data;const h=new Array(256).fill(0);for(let i=0;i<p.length;i+=4)h[p[i]]++;const tot=p.length/4;let sum=0;for(let t=0;t<256;t++)sum+=t*h[t];let sB=0,wB=0,max=0,thr=127;for(let t=0;t<256;t++){wB+=h[t];if(!wB)continue;const wF=tot-wB;if(!wF)break;sB+=t*h[t];const mB=sB/wB,mF=(sum-sB)/wF,bt=wB*wF*(mB-mF)*(mB-mF);if(bt>max){max=bt;thr=t;}}for(let i=0;i<p.length;i+=4){let v=p[i]>thr?255:0;if(inv)v=255-v;p[i]=p[i+1]=p[i+2]=v;}return putID(cv,id);}
-function morphClose(cv){const W=cv.width,H=cv.height;let src=getID(cv).data;const pass=(d,dil)=>{const o=new Uint8ClampedArray(d.length);for(let y=0;y<H;y++)for(let x=0;x<W;x++){let v=dil?0:255;for(let dy=-1;dy<=1;dy++)for(let dx=-1;dx<=1;dx++){const nx=x+dx,ny=y+dy;if(nx<0||ny<0||nx>=W||ny>=H)continue;const pv=d[(ny*W+nx)*4];v=dil?Math.max(v,pv):Math.min(v,pv);}const oi=(y*W+x)*4;o[oi]=o[oi+1]=o[oi+2]=v;o[oi+3]=255;}return o;};let a=pass(src,true);a=pass(a,false);return putID(cv,new ImageData(a,W,H));}
-
-function buildVariants(roi){
-  const gray=toGray(cloneCv(roi));
-  const c=contrast(cloneCv(gray));
-  return [
-    ['contrast', c],
-    ['otsu',     otsu(cloneCv(c),false)],
-    ['otsu_inv', otsu(cloneCv(c),true)],
-    ['close',    morphClose(otsu(cloneCv(c),false))],
-    ['close_inv',morphClose(otsu(cloneCv(c),true))],
-  ];
-}
-function showPreviews(roi,variants){
-  const box=$('previews');box.innerHTML='';
-  const all=[['raw',roi],...variants];
-  all.forEach(([name,cv])=>{
-    const w=document.createElement('div');w.className='pv';
-    const c=document.createElement('canvas');c.width=90;c.height=90;
-    c.getContext('2d').drawImage(cv,0,0,90,90);
-    const l=document.createElement('div');l.textContent=name;
-    w.appendChild(c);w.appendChild(l);box.appendChild(w);
   });
-}
 
-async function attemptDecode(roi, isStill){
-  let hit=await decodeImageData(getID(roi)); let via='raw';
-  let variants=null;
-  if(!hit){
-    variants=buildVariants(roi);
-    for(const [name,cv] of variants){
-      hit=await decodeImageData(getID(cv));
-      if(hit){ via=name; break; }
+  (async()=>{
+    try{
+      await getZXingModule();
+      engineReady=true;
+      const s=$('uidStatus'); if(s) s.textContent='✅ Scanner ready (Data Matrix / DPM)';
+    }catch(e){
+      const s=$('uidStatus'); if(s) s.textContent='⚠ Scanner engine failed to load';
     }
-  }
-  if(isStill) showPreviews(roi, variants||buildVariants(roi));
-  if(hit){
-    const now=Date.now();
-    if(hit===lastHit && now-lastHitTime<3000) return hit;
-    lastHit=hit; lastHitTime=now;
-    onDecoded(hit,via);
-    return hit;
-  }
-  if(isStill){ $('fb').textContent='❌ No code in that frame'; log('Capture: no decode.'); }
-  return null;
-}
+  })();
 
-function flashPop(){const f=$('flash');if(!f)return;f.classList.add('pop');setTimeout(()=>f.classList.remove('pop'),120);}
-function beep(){try{const a=new (window.AudioContext||window.webkitAudioContext)();const o=a.createOscillator(),g=a.createGain();o.connect(g);g.connect(a.destination);o.type='square';o.frequency.value=1500;g.gain.value=.2;o.start();o.stop(a.currentTime+.12);}catch(e){}}
-function esc(s){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
-
-async function onDecoded(text, via){
-  beep(); flashPop();
-  $('fb').textContent='✅ Decoded!';
-  log('DECODED ('+via+'): '+text);
-  $('resultCard').style.display='block';
-  $('resultBox').innerHTML=
-    '<div class="result-ok"><div class="lbl">Raw Decoded Value</div><div class="val">'+esc(text)+'</div></div>'+
-    '<div class="lookup-box lookup-none" id="lk">🔎 Looking up in database…</div>';
-  try{
-    const r=await fetch(API_URL+"?uid="+encodeURIComponent(text));
-    const d=await r.json();
-    if(d&&d.variant){
-      $('lk').className='lookup-box lookup-found';
-      $('lk').innerHTML='<b>✅ Match:</b> '+esc(d.variant)+' &nbsp;•&nbsp; MRP ₹'+(Number(d.mrp)||0);
-      log('Lookup matched: '+d.variant);
-    }else{
-      $('lk').className='lookup-box lookup-none';
-      $('lk').textContent='❌ Decoded, but no database match for this value.';
-      log('Lookup: no match.');
-    }
-  }catch(e){
-    $('lk').className='lookup-box lookup-none';
-    $('lk').textContent='⚠ Decoded, but lookup failed: '+(e&&e.message||e);
-    log('Lookup error: '+(e&&e.message||e));
-  }
-}
-
-window.captureFrame = async ()=>{
-  const v=$('video'); if(!v||v.videoWidth===0){log('No video frame yet.');return;}
-  flashPop(); $('fb').textContent='⏳ Processing captured frame…';
-  await attemptDecode(getRoiCanvas(v), true);
-};
-
-window.decodeFile = (ev)=>{
-  if(!engineReady){ log('Engine not ready.'); return; }
-  const f=ev.target.files&&ev.target.files[0]; if(!f) return;
-  const img=new Image();
-  img.onload=async ()=>{
-    log('Image '+img.width+'×'+img.height+' — trying full frame then center ROI…');
-    const full=document.createElement('canvas');full.width=img.width;full.height=img.height;
-    full.getContext('2d',{willReadFrequently:true}).drawImage(img,0,0);
-    let hit=await attemptDecode(full,true);
-    if(!hit){
-      const side=Math.min(img.width,img.height)*0.6;
-      const sx=(img.width-side)/2, sy=(img.height-side)/2;
-      const roi=document.createElement('canvas');roi.width=540;roi.height=540;
-      roi.getContext('2d',{willReadFrequently:true}).drawImage(img,sx,sy,side,side,0,0,540,540);
-      hit=await attemptDecode(roi,true);
-    }
-    if(!hit) log('No decode. If the mark is glare-washed or the dots are unconnected, the photo cannot be recovered — re-shoot with soft diffuse light.');
-    URL.revokeObjectURL(img.src);
+  const READ_OPTS = {
+    formats:["DataMatrix"],
+    tryHarder:true, tryRotate:true, tryInvert:true, tryDownscale:true,
+    binarizer:"LocalAverage", maxNumberOfSymbols:1
   };
-  img.onerror=()=>log('Could not load that image file.');
-  img.src=URL.createObjectURL(f);
-};
+
+  async function decodeImageData(imgData){
+    try{
+      const res=await readBarcodesFromImageData(imgData, READ_OPTS);
+      if(res&&res.length&&res[0].text) return res[0].text;
+    }catch(e){}
+    return null;
+  }
+
+  let stream=null, scanLoop=null, track=null, torchOn=false, busy=false;
+
+  window.openUidScanner = async ()=>{
+    if(!engineReady){ const fb=$('uidFb'); if(fb) fb.textContent='Engine still loading… try again in a moment'; }
+    $('scanWrap').style.display='block';
+    if(stream) return;
+    try{
+      stream = await navigator.mediaDevices.getUserMedia({
+        video:{ facingMode:{ideal:"environment"}, width:{ideal:1920}, height:{ideal:1080} }
+      });
+      const v=$('uidVideo'); v.srcObject=stream; await v.play();
+      track = stream.getVideoTracks()[0];
+      const caps = track.getCapabilities ? track.getCapabilities() : {};
+      if(caps.focusMode && caps.focusMode.includes && caps.focusMode.includes('continuous')){
+        try{ await track.applyConstraints({advanced:[{focusMode:'continuous'}]}); }catch(e){}
+      }
+      if(caps.zoom){ const z=$('uidZoom'); z.min=caps.zoom.min; z.max=caps.zoom.max; z.step=(caps.zoom.step||0.1); z.value=caps.zoom.min; $('uidZoomRow').style.display='flex'; }
+      startLoop();
+    }catch(e){
+      const fb=$('uidFb'); if(fb) fb.textContent='❌ Camera access denied';
+    }
+  };
+
+  window.closeUidScanner = ()=>{
+    if(scanLoop){cancelAnimationFrame(scanLoop);scanLoop=null;}
+    if(stream){stream.getTracks().forEach(t=>t.stop());stream=null;}
+    const v=$('uidVideo'); if(v) v.srcObject=null;
+    $('scanWrap').style.display='none';
+    track=null; torchOn=false;
+  };
+
+  window.setUidZoom = (v)=>{ if(track) track.applyConstraints({advanced:[{zoom:Number(v)}]}).catch(()=>{}); };
+
+  window.toggleUidTorch = async ()=>{
+    if(!track) return;
+    const caps=track.getCapabilities?track.getCapabilities():{};
+    if(!caps.torch){ const fb=$('uidFb'); if(fb) fb.textContent='Torch not supported on this camera'; return; }
+    torchOn=!torchOn;
+    try{ await track.applyConstraints({advanced:[{torch:torchOn}]}); }catch(e){}
+  };
+
+  function startLoop(){
+    const v=$('uidVideo');
+    const tick=async()=>{
+      if(!stream) return;
+      if(!busy && engineReady && v.readyState>=2 && v.videoWidth>0){
+        busy=true;
+        try{ await attempt(getRoi(v)); }catch(e){}
+        busy=false;
+      }
+      scanLoop=requestAnimationFrame(tick);
+    };
+    tick();
+  }
+
+  function getRoi(video){
+    const vw=video.videoWidth, vh=video.videoHeight;
+    const side=Math.min(vw,vh)*0.55;
+    const sx=(vw-side)/2, sy=(vh-side)/2;
+    const out=document.createElement('canvas');
+    const target=540; out.width=target; out.height=target;
+    const ctx=out.getContext('2d',{willReadFrequently:true});
+    ctx.imageSmoothingEnabled=true; ctx.imageSmoothingQuality='high';
+    ctx.drawImage(video, sx,sy,side,side, 0,0,target,target);
+    return out;
+  }
+
+  // preprocessing helpers
+  function cloneCv(cv){const n=document.createElement('canvas');n.width=cv.width;n.height=cv.height;n.getContext('2d',{willReadFrequently:true}).drawImage(cv,0,0);return n;}
+  function getID(cv){return cv.getContext('2d',{willReadFrequently:true}).getImageData(0,0,cv.width,cv.height);}
+  function putID(cv,id){cv.getContext('2d',{willReadFrequently:true}).putImageData(id,0,0);return cv;}
+  function toGray(cv){const id=getID(cv),p=id.data;for(let i=0;i<p.length;i+=4){const g=(p[i]*.299+p[i+1]*.587+p[i+2]*.114)|0;p[i]=p[i+1]=p[i+2]=g;}return putID(cv,id);}
+  function contrast(cv){const id=getID(cv),p=id.data;let mn=255,mx=0;for(let i=0;i<p.length;i+=4){if(p[i]<mn)mn=p[i];if(p[i]>mx)mx=p[i];}const r=Math.max(1,mx-mn);for(let i=0;i<p.length;i+=4){const v=((p[i]-mn)*255/r)|0;p[i]=p[i+1]=p[i+2]=v;}return putID(cv,id);}
+  function otsu(cv,inv){const id=getID(cv),p=id.data;const h=new Array(256).fill(0);for(let i=0;i<p.length;i+=4)h[p[i]]++;const tot=p.length/4;let sum=0;for(let t=0;t<256;t++)sum+=t*h[t];let sB=0,wB=0,max=0,thr=127;for(let t=0;t<256;t++){wB+=h[t];if(!wB)continue;const wF=tot-wB;if(!wF)break;sB+=t*h[t];const mB=sB/wB,mF=(sum-sB)/wF,bt=wB*wF*(mB-mF)*(mB-mF);if(bt>max){max=bt;thr=t;}}for(let i=0;i<p.length;i+=4){let v=p[i]>thr?255:0;if(inv)v=255-v;p[i]=p[i+1]=p[i+2]=v;}return putID(cv,id);}
+  function morphClose(cv){const W=cv.width,H=cv.height;let src=getID(cv).data;const pass=(d,dil)=>{const o=new Uint8ClampedArray(d.length);for(let y=0;y<H;y++)for(let x=0;x<W;x++){let v=dil?0:255;for(let dy=-1;dy<=1;dy++)for(let dx=-1;dx<=1;dx++){const nx=x+dx,ny=y+dy;if(nx<0||ny<0||nx>=W||ny>=H)continue;const pv=d[(ny*W+nx)*4];v=dil?Math.max(v,pv):Math.min(v,pv);}const oi=(y*W+x)*4;o[oi]=o[oi+1]=o[oi+2]=v;o[oi+3]=255;}return o;};let a=pass(src,true);a=pass(a,false);return putID(cv,new ImageData(a,W,H));}
+
+  function buildVariants(roi){
+    const gray=toGray(cloneCv(roi));
+    const c=contrast(cloneCv(gray));
+    return [ c, otsu(cloneCv(c),false), otsu(cloneCv(c),true),
+             morphClose(otsu(cloneCv(c),false)), morphClose(otsu(cloneCv(c),true)) ];
+  }
+
+  async function attempt(roi){
+    let hit=await decodeImageData(getID(roi));
+    if(!hit){
+      for(const cv of buildVariants(roi)){
+        hit=await decodeImageData(getID(cv));
+        if(hit) break;
+      }
+    }
+    if(hit) onDecoded(hit);
+  }
+
+  function flashPop(){const f=$('uidFlash');if(!f)return;f.classList.add('pop');setTimeout(()=>f.classList.remove('pop'),120);}
+  function beep(){try{const a=new (window.AudioContext||window.webkitAudioContext)();const o=a.createOscillator(),g=a.createGain();o.connect(g);g.connect(a.destination);o.type='square';o.frequency.value=1500;g.gain.value=.2;o.start();o.stop(a.currentTime+.12);}catch(e){}}
+
+  function onDecoded(text){
+    beep(); flashPop();
+    const inp=$('uid'); if(inp) inp.value=text;            // fill UID field
+    const fb=$('uidFb'); if(fb) fb.textContent='✅ '+text;
+    setTimeout(()=>{ window.closeUidScanner(); }, 250);     // auto-close on success
+  }
 </script>
 </body>
 </html>
