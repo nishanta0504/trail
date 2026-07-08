@@ -4,558 +4,596 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta charset="UTF-8">
 <title>AKAI DISTRIBUTORS</title>
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#0d1b3e">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="AKAI DISTRIBUTORS">
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{--navy:#0d1b3e;--navy2:#162250;--blue:#1a56db;--blue2:#3b82f6;--accent:#f59e0b;--green:#10b981;--red:#ef4444;--orange:#f97316;--border:#d1daf7;--text:#1e293b;--muted:#64748b;--shadow:0 4px 24px rgba(13,27,62,.10);--r:14px;--rs:8px}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%;overflow-x:hidden}
 body{font-family:'DM Sans',sans-serif;background:linear-gradient(135deg,#e8eeff 0%,#f4f7ff 60%,#fdf6e3 100%);min-height:100vh;color:var(--text);-webkit-tap-highlight-color:transparent}
-
-/* SHELL: Code entry */
 #shellScreen{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px 20px}
-.shell-logo-wrap{display:flex;flex-direction:column;align-items:center;margin-bottom:36px;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
-.shell-logo{width:104px;height:104px;background:linear-gradient(135deg,var(--navy),var(--navy2));border-radius:26px;display:flex;align-items:center;justify-content:center;box-shadow:0 12px 40px rgba(13,27,62,.28);position:relative;overflow:hidden;cursor:pointer;transition:transform .15s;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
-.shell-logo:active{transform:scale(.94)}
-.shell-logo img{width:100%;height:100%;object-fit:cover;pointer-events:none}
-.shell-logo .logo-fallback{font-family:'Syne',sans-serif;font-weight:800;font-size:36px;color:var(--accent);letter-spacing:1px;pointer-events:none}
-.shell-logo-progress{position:absolute;left:0;right:0;bottom:0;height:0;background:linear-gradient(to top,rgba(245,158,11,.5),rgba(245,158,11,.2));transition:height 5s linear;pointer-events:none}
-.shell-logo.pressing .shell-logo-progress{height:100%}
-.shell-brand{font-family:'Syne',sans-serif;font-weight:800;font-size:24px;color:var(--navy);letter-spacing:.5px;margin-top:18px;text-align:center}
-.shell-tag{font-size:11px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-top:4px}
-.code-card{background:#fff;border-radius:20px;box-shadow:var(--shadow);padding:26px 22px;width:100%;max-width:360px;border:1px solid rgba(209,218,247,.6)}
-.code-card-title{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1.2px;text-align:center;margin-bottom:18px}
-#codeInput{width:100%;padding:16px;font-size:26px;font-family:'Syne',sans-serif;font-weight:700;letter-spacing:8px;text-align:center;border:2px solid var(--border);border-radius:12px;background:#f8faff;color:var(--navy);outline:none}
+.logo-wrap{display:flex;flex-direction:column;align-items:center;margin-bottom:36px}
+.logo-box{width:100px;height:100px;background:linear-gradient(135deg,var(--navy),var(--navy2));border-radius:24px;display:flex;align-items:center;justify-content:center;box-shadow:0 12px 40px rgba(13,27,62,.28);cursor:pointer;position:relative;overflow:hidden;transition:transform .1s;-webkit-user-select:none;user-select:none}
+.logo-box:active{transform:scale(.92)}
+.logo-box img{width:100%;height:100%;object-fit:cover;pointer-events:none}
+.logo-fallback{font-family:'Syne',sans-serif;font-weight:800;font-size:34px;color:var(--accent);pointer-events:none;position:relative;z-index:1}
+.click-ring{position:absolute;inset:0;border-radius:24px;border:4px solid transparent;pointer-events:none;z-index:2;transition:border-color .15s,box-shadow .15s}
+.logo-box.c1 .click-ring{border-color:rgba(245,158,11,.45);box-shadow:inset 0 0 0 2px rgba(245,158,11,.2)}
+.logo-box.c2 .click-ring{border-color:rgba(245,158,11,.8);box-shadow:inset 0 0 0 2px rgba(245,158,11,.4)}
+.logo-box.c3 .click-ring{border-color:var(--accent);box-shadow:inset 0 0 0 2px rgba(245,158,11,.6)}
+.brand-name{font-family:'Syne',sans-serif;font-weight:800;font-size:22px;color:var(--navy);margin-top:16px;letter-spacing:.3px}
+.brand-sub{font-size:11px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-top:3px}
+.click-hint{font-size:10px;color:var(--muted);margin-top:8px;opacity:.55;letter-spacing:.3px}
+.code-card{background:#fff;border-radius:20px;box-shadow:var(--shadow);padding:24px 20px;width:100%;max-width:360px;border:1px solid rgba(209,218,247,.6)}
+.code-label{font-family:'Syne',sans-serif;font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1.2px;text-align:center;margin-bottom:16px}
+#codeInput{width:100%;padding:15px;font-size:28px;font-family:'Syne',sans-serif;font-weight:700;letter-spacing:10px;text-align:center;border:2px solid var(--border);border-radius:12px;background:#f8faff;color:var(--navy);outline:none;transition:border .2s}
 #codeInput:focus{border-color:var(--blue2);background:#fff}
 #codeInput::placeholder{letter-spacing:4px;font-size:16px;color:#cbd5e1}
-.code-open-btn{width:100%;margin-top:16px;padding:15px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;border:none;border-radius:12px;background:linear-gradient(135deg,var(--blue),var(--blue2));color:#fff;cursor:pointer}
-.code-open-btn:active{transform:scale(.97)}
-.code-msg{text-align:center;font-size:12px;margin-top:14px;min-height:18px;font-weight:500}
-.code-msg.error{color:var(--red)}
-.code-msg.ok{color:var(--green)}
-.shell-footer{margin-top:28px;font-size:10px;color:var(--muted);text-align:center;opacity:.7}
-.sync-chip{display:inline-flex;align-items:center;gap:5px;font-size:10px;color:var(--muted);margin-top:10px;background:rgba(255,255,255,.6);border:1px solid var(--border);border-radius:14px;padding:4px 10px}
-.sync-dot{width:6px;height:6px;border-radius:50%;background:var(--muted)}
-.sync-dot.online{background:var(--green)}
-.sync-dot.offline{background:var(--orange)}
-.press-hint{font-size:10px;color:var(--muted);margin-top:8px;text-align:center;opacity:.5;letter-spacing:.5px}
-
-/* PIN overlay */
-.overlay{position:fixed;inset:0;background:rgba(13,27,62,.6);z-index:5000;display:none;align-items:center;justify-content:center;padding:20px}
+.open-btn{width:100%;margin-top:14px;padding:14px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;border:none;border-radius:12px;background:linear-gradient(135deg,var(--blue),var(--blue2));color:#fff;cursor:pointer}
+.open-btn:active{opacity:.85;transform:scale(.98)}
+.code-msg{text-align:center;font-size:12px;margin-top:12px;min-height:16px;font-weight:500}
+.code-msg.err{color:var(--red)}.code-msg.ok{color:var(--green)}
+.net-chip{display:inline-flex;align-items:center;gap:5px;font-size:10px;color:var(--muted);margin-top:12px;background:rgba(255,255,255,.7);border:1px solid var(--border);border-radius:14px;padding:4px 10px}
+.ndot{width:6px;height:6px;border-radius:50%;flex-shrink:0;background:var(--muted)}
+.ndot.on{background:var(--green)}.ndot.off{background:var(--orange)}
+.shell-footer{margin-top:16px;font-size:10px;color:var(--muted);opacity:.55}
+.overlay{position:fixed;inset:0;background:rgba(13,27,62,.65);z-index:8000;display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px)}
 .overlay.open{display:flex}
-.pin-box{background:#fff;border-radius:20px;padding:26px 22px;width:100%;max-width:320px;box-shadow:0 16px 50px rgba(0,0,0,.3)}
-.pin-title{font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:var(--navy);text-align:center;margin-bottom:4px}
+.pin-card{background:#fff;border-radius:20px;padding:26px 22px;width:100%;max-width:320px;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+.pin-title{font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:var(--navy);text-align:center;margin-bottom:3px}
 .pin-sub{font-size:11px;color:var(--muted);text-align:center;margin-bottom:18px}
-#pinInput{width:100%;padding:14px;font-size:22px;font-family:'Syne',sans-serif;font-weight:700;letter-spacing:8px;text-align:center;border:2px solid var(--border);border-radius:12px;background:#f8faff;outline:none;color:var(--navy)}
-.pin-btns{display:flex;gap:8px;margin-top:14px}
-.pin-btns button{flex:1;padding:13px;font-size:14px;font-weight:600;border:none;border-radius:10px;cursor:pointer;font-family:'DM Sans',sans-serif}
-.pin-cancel{background:#f1f5f9;color:var(--muted)}
-.pin-ok{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff}
-.pin-msg{text-align:center;font-size:11px;color:var(--red);margin-top:10px;min-height:14px}
-
-/* Module host */
-#moduleScreen{display:none;flex-direction:column;height:100vh}
-#moduleScreen.active{display:flex}
-.mod-topbar{background:linear-gradient(120deg,var(--navy),var(--navy2));display:flex;align-items:center;gap:0;box-shadow:0 2px 12px rgba(13,27,62,.25);position:sticky;top:0;z-index:300;flex-shrink:0}
-.mod-back{background:rgba(255,255,255,.12);border:none;color:#fff;width:44px;height:48px;font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.mod-back:active{background:rgba(255,255,255,.25)}
-.mod-tabs{flex:1;display:flex;overflow-x:auto;scrollbar-width:none}
-.mod-tabs::-webkit-scrollbar{display:none}
-.mod-tab{flex:1;min-width:max-content;padding:14px 16px;background:transparent;border:none;color:rgba(255,255,255,.55);font-family:'Syne',sans-serif;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;border-bottom:3px solid transparent}
-.mod-tab.active{color:#fff;border-bottom-color:var(--accent)}
-.mod-frames{flex:1;position:relative;overflow:hidden;background:#f4f7ff}
+#pinInput{width:100%;padding:13px;font-size:22px;font-family:'Syne',sans-serif;font-weight:700;letter-spacing:8px;text-align:center;border:2px solid var(--border);border-radius:12px;background:#f8faff;outline:none}
+#pinInput:focus{border-color:var(--blue2)}
+.pin-row{display:flex;gap:8px;margin-top:13px}
+.pin-row button{flex:1;padding:12px;font-size:14px;font-weight:600;border:none;border-radius:10px;cursor:pointer;font-family:'DM Sans',sans-serif}
+.pcnl{background:#f1f5f9;color:var(--muted)}.pok{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff}
+.pin-err{text-align:center;font-size:11px;color:var(--red);margin-top:8px;min-height:14px}
+#modScreen{display:none;flex-direction:column;height:100vh;height:100dvh}
+#modScreen.show{display:flex}
+.mod-bar{background:linear-gradient(120deg,var(--navy),var(--navy2));display:flex;align-items:center;min-height:50px;box-shadow:0 2px 10px rgba(13,27,62,.3);flex-shrink:0;z-index:300}
+.back-btn{background:rgba(255,255,255,.12);border:none;color:#fff;width:44px;min-height:50px;font-size:26px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;line-height:1}
+.back-btn:active{background:rgba(255,255,255,.25)}
+.page-tabs{flex:1;display:flex;overflow-x:auto;scrollbar-width:none}
+.page-tabs::-webkit-scrollbar{display:none}
+.ptab{flex:0 0 auto;padding:14px 18px;background:none;border:none;border-bottom:3px solid transparent;color:rgba(255,255,255,.5);font-family:'Syne',sans-serif;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;transition:.15s}
+.ptab.on{color:#fff;border-bottom-color:var(--accent)}
+.sub-bar{background:var(--navy2);display:none;overflow-x:auto;scrollbar-width:none;flex-shrink:0;border-bottom:1px solid rgba(255,255,255,.08)}
+.sub-bar::-webkit-scrollbar{display:none}
+.sub-bar.show{display:flex}
+.stab{flex:0 0 auto;padding:9px 16px;background:none;border:none;border-bottom:2px solid transparent;color:rgba(255,255,255,.45);font-size:11px;font-weight:600;cursor:pointer;white-space:nowrap;font-family:'DM Sans',sans-serif}
+.stab.on{color:var(--accent);border-bottom-color:var(--accent)}
+.frame-area{flex:1;position:relative;overflow:hidden;background:#f4f7ff}
 .mod-frame{position:absolute;inset:0;width:100%;height:100%;border:none;display:none;background:#fff}
-.mod-frame.active{display:block}
-.mod-loader{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.9);z-index:5}
-.mod-loader.hidden{display:none}
-.mod-loader .spin{width:40px;height:40px;border:4px solid #e8eeff;border-top-color:var(--blue);border-radius:50%;animation:spin .7s linear infinite}
+.mod-frame.on{display:block}
+.frame-loader{position:absolute;inset:0;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:10;gap:14px}
+.frame-loader.gone{display:none}
+.spin{width:44px;height:44px;border:4px solid #e8eeff;border-top-color:var(--blue);border-radius:50%;animation:spin .7s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
-
-/* Admin */
+.load-txt{font-family:'Syne',sans-serif;font-size:13px;color:var(--muted);font-weight:600}
+.frame-err{position:absolute;inset:0;background:#fff;display:none;flex-direction:column;align-items:center;justify-content:center;padding:28px;text-align:center;gap:12px;z-index:11;overflow-y:auto}
+.frame-err.show{display:flex}
+.ferr-icon{width:60px;height:60px;background:#fff3f3;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0}
+.ferr-title{font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:var(--navy)}
+.ferr-body{font-size:13px;color:var(--muted);line-height:1.7;max-width:320px}
+.fix-box{background:#f8faff;border:1px solid var(--border);border-radius:12px;padding:14px;text-align:left;font-size:12px;color:var(--text);line-height:2;max-width:340px;width:100%}
+.fix-box b{color:var(--navy)}
+.retry-btn{padding:12px 28px;background:linear-gradient(135deg,var(--blue),var(--blue2));color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer}
 #adminScreen{display:none;flex-direction:column;min-height:100vh}
-#adminScreen.active{display:flex}
-.admin-top{background:linear-gradient(120deg,var(--navy),var(--navy2));padding:14px 16px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:300}
-.admin-top .mod-back{border-radius:8px;width:38px;height:38px}
-.admin-top h2{flex:1;font-family:'Syne',sans-serif;font-size:15px;font-weight:800;color:#fff;letter-spacing:.3px}
+#adminScreen.show{display:flex}
+.admin-bar{background:linear-gradient(120deg,var(--navy),var(--navy2));padding:12px 14px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:300}
+.admin-bar h2{flex:1;font-family:'Syne',sans-serif;font-size:15px;font-weight:800;color:#fff}
 .admin-body{flex:1;padding:14px;max-width:640px;margin:0 auto;width:100%}
-.admin-card{background:#fff;border-radius:var(--r);box-shadow:var(--shadow);padding:16px;margin-bottom:14px;border:1px solid rgba(209,218,247,.5)}
-.admin-card-title{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1.1px;margin-bottom:12px;display:flex;align-items:center;gap:6px}
-.admin-card-title::before{content:'';width:3px;height:13px;background:var(--blue);border-radius:2px}
-.admin-field{margin-bottom:12px}
-.admin-field label{display:block;font-size:10px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.7px;margin-bottom:4px}
-.admin-field input,.admin-field select{width:100%;padding:11px 12px;font-size:14px;font-family:'DM Sans',sans-serif;border:1.5px solid var(--border);border-radius:var(--rs);background:#f8faff;outline:none}
-.admin-field input:focus{border-color:var(--blue2);background:#fff}
-.abtn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:11px 15px;font-size:13px;font-weight:600;border:none;border-radius:var(--rs);cursor:pointer;font-family:'DM Sans',sans-serif}
-.abtn:active{transform:scale(.96)}
-.abtn-primary{background:linear-gradient(135deg,var(--blue),var(--blue2));color:#fff}
-.abtn-accent{background:linear-gradient(135deg,var(--accent),var(--orange));color:var(--navy)}
-.abtn-danger{background:var(--red);color:#fff}
-.abtn-outline{background:transparent;border:1.5px solid var(--border);color:var(--text)}
-.abtn-full{width:100%}
-.abtn-sm{padding:7px 11px;font-size:12px}
+.ac{background:#fff;border-radius:var(--r);box-shadow:var(--shadow);padding:14px;margin-bottom:14px;border:1px solid rgba(209,218,247,.5)}
+.act{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1.1px;margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.act::before{content:'';width:3px;height:13px;background:var(--blue);border-radius:2px}
+.af label{display:block;font-size:10px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.7px;margin-bottom:3px;margin-top:10px}
+.af input{width:100%;padding:10px 12px;font-size:14px;font-family:'DM Sans',sans-serif;border:1.5px solid var(--border);border-radius:var(--rs);background:#f8faff;outline:none}
+.af input:focus{border-color:var(--blue2);background:#fff}
+.xb{display:inline-flex;align-items:center;justify-content:center;gap:5px;padding:10px 14px;font-size:13px;font-weight:600;border:none;border-radius:var(--rs);cursor:pointer;font-family:'DM Sans',sans-serif}
+.xb:active{opacity:.8}
+.xbp{background:linear-gradient(135deg,var(--blue),var(--blue2));color:#fff}
+.xba{background:linear-gradient(135deg,var(--accent),var(--orange));color:var(--navy)}
+.xbr{background:var(--red);color:#fff}
+.xbo{background:transparent;border:1.5px solid var(--border);color:var(--text)}
+.xbf{width:100%}.xbs{padding:6px 10px;font-size:11px;border-radius:6px}
 .code-item{border:1.5px solid var(--border);border-radius:12px;padding:12px;margin-bottom:10px;background:#f8faff}
-.code-item-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
-.code-item-code{font-family:'Syne',sans-serif;font-weight:800;font-size:18px;color:var(--navy);letter-spacing:2px}
-.code-item-actions{display:flex;gap:6px}
-.mod-chip{display:flex;align-items:center;gap:6px;background:#fff;border:1px solid var(--border);border-radius:8px;padding:8px 10px;margin-bottom:6px;font-size:12px}
-.mod-chip-name{font-weight:600;color:var(--navy);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.empty-hint{text-align:center;padding:20px;color:var(--muted);font-size:12px}
-.admin-note{font-size:11px;color:var(--muted);line-height:1.6;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:10px 12px;margin-top:8px}
-
-.editor-modal{position:fixed;inset:0;background:rgba(13,27,62,.55);z-index:6000;display:none;align-items:flex-end;justify-content:center}
-.editor-modal.open{display:flex}
-.editor-sheet{background:#fff;border-radius:20px 20px 0 0;width:100%;max-width:640px;max-height:92vh;overflow-y:auto;padding:20px 18px 30px}
-.editor-title{font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:var(--navy);margin-bottom:16px;display:flex;align-items:center;justify-content:space-between}
-.editor-close{background:#f1f5f9;border:none;width:32px;height:32px;border-radius:50%;font-size:18px;cursor:pointer;color:var(--muted)}
-.mod-editor-row{border:1.5px solid var(--border);border-radius:10px;padding:10px;margin-bottom:8px;background:#f8faff}
-
-.toast-container{position:fixed;top:16px;right:12px;left:12px;z-index:10000;display:flex;flex-direction:column;align-items:center;gap:8px;pointer-events:none}
-.toast{background:#fff;border-radius:var(--rs);box-shadow:0 8px 26px rgba(0,0,0,.18);padding:12px 18px;display:flex;align-items:center;gap:10px;font-size:14px;font-weight:600;border-left:5px solid var(--blue);max-width:90%}
-.toast.success{border-color:var(--green)}
-.toast.error{border-color:var(--red)}
-.toast.warning{border-color:var(--accent)}
+.ci-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.ci-code{font-family:'Syne',sans-serif;font-weight:800;font-size:20px;color:var(--navy);letter-spacing:3px}
+.ci-acts{display:flex;gap:6px}
+.pg-chip{background:#fff;border:1px solid var(--border);border-radius:8px;padding:7px 10px;margin-bottom:5px}
+.pg-chip-name{font-size:12px;font-weight:700;color:var(--navy)}
+.pg-chip-urls{font-size:10px;color:var(--muted);margin-top:2px;line-height:1.7}
+.empty-note{text-align:center;padding:16px;color:var(--muted);font-size:12px}
+.anote{font-size:11px;color:var(--muted);line-height:1.7;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:10px 12px;margin-top:10px}
+.emod{position:fixed;inset:0;background:rgba(13,27,62,.6);z-index:9000;display:none;align-items:flex-end;justify-content:center;backdrop-filter:blur(3px)}
+.emod.open{display:flex}
+.esheet{background:#fff;border-radius:20px 20px 0 0;width:100%;max-width:640px;max-height:93vh;overflow-y:auto;padding:20px 16px 32px}
+.etitle{font-family:'Syne',sans-serif;font-size:15px;font-weight:800;color:var(--navy);margin-bottom:16px;display:flex;align-items:center;justify-content:space-between}
+.ecls{background:#f1f5f9;border:none;width:30px;height:30px;border-radius:50%;font-size:17px;cursor:pointer;color:var(--muted)}
+.per{border:1.5px solid var(--border);border-radius:12px;padding:12px;margin-bottom:10px;background:#f8faff}
+.per-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.per-lbl{font-family:'Syne',sans-serif;font-size:12px;font-weight:700;color:var(--navy)}
+.pg-name-inp{width:100%;padding:9px 10px;font-size:13px;font-family:'DM Sans',sans-serif;border:1.5px solid var(--border);border-radius:7px;background:#fff;outline:none;margin-bottom:10px}
+.pg-name-inp:focus{border-color:var(--blue2)}
+.urls-lbl{font-size:10px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.7px;margin-bottom:6px}
+.url-entry{margin-bottom:8px;border:1px solid var(--border);border-radius:8px;padding:8px;background:#fff}
+.ue-lbl{width:100%;padding:7px 9px;font-size:11px;font-family:'DM Sans',sans-serif;border:1px solid var(--border);border-radius:6px;background:#f8faff;outline:none;margin-bottom:5px;color:var(--muted)}
+.ue-lbl:focus{border-color:var(--blue2)}
+.ue-url-row{display:flex;align-items:center;gap:6px}
+.ue-url{flex:1;padding:8px 10px;font-size:12px;font-family:'DM Sans',sans-serif;border:1.5px solid var(--border);border-radius:6px;background:#fff;outline:none}
+.ue-url:focus{border-color:var(--blue2)}
+.ue-del{background:none;border:none;color:var(--red);font-size:18px;cursor:pointer;padding:2px 5px;line-height:1;flex-shrink:0}
+.add-url-btn{display:flex;align-items:center;gap:5px;font-size:11px;font-weight:600;color:var(--blue);background:rgba(26,86,219,.06);border:1px dashed var(--blue2);border-radius:7px;padding:7px 12px;cursor:pointer;width:100%;margin-top:6px}
+.toast-wrap{position:fixed;top:14px;left:10px;right:10px;z-index:99999;display:flex;flex-direction:column;align-items:center;gap:7px;pointer-events:none}
+.toast{background:#fff;border-radius:var(--rs);box-shadow:0 8px 26px rgba(0,0,0,.18);padding:11px 16px;display:flex;align-items:center;gap:9px;font-size:13px;font-weight:600;border-left:5px solid var(--blue);max-width:92%;animation:tsl .2s ease}
+.toast.ok{border-color:var(--green)}.toast.er{border-color:var(--red)}.toast.wa{border-color:var(--accent)}
+@keyframes tsl{from{transform:translateY(-12px);opacity:0}to{transform:translateY(0);opacity:1}}
 </style>
 </head>
 <body>
-
-<div class="toast-container" id="toastContainer"></div>
+<div class="toast-wrap" id="toastWrap"></div>
 
 <!-- SCREEN 1: CODE ENTRY -->
 <div id="shellScreen">
-  <div class="shell-logo-wrap">
-    <div class="shell-logo" id="shellLogo">
-      <div class="shell-logo-progress"></div>
-      <div class="logo-fallback" id="logoFallback">AD</div>
+  <div class="logo-wrap">
+    <div class="logo-box" id="logoBox" onclick="logoClick()">
+      <div class="click-ring"></div>
+      <div class="logo-fallback" id="logoFB">AD</div>
     </div>
-    <div class="shell-brand">AKAI DISTRIBUTORS</div>
-    <div class="shell-tag">Office Suite</div>
+    <div class="brand-name">AKAI DISTRIBUTORS</div>
+    <div class="brand-sub">Office Suite</div>
+    <div class="click-hint">Tap logo 3 times for Admin</div>
   </div>
   <div class="code-card">
-    <div class="code-card-title">Enter Access Code</div>
+    <div class="code-label">Enter Access Code</div>
     <input type="tel" id="codeInput" placeholder="&bull; &bull; &bull; &bull;" maxlength="12" autocomplete="off"
-           onkeydown="if(event.key==='Enter'){event.preventDefault();openByCode();}">
-    <button class="code-open-btn" onclick="openByCode()">Open</button>
+           onkeydown="if(event.key==='Enter')openByCode()">
+    <button class="open-btn" onclick="openByCode()">Open</button>
     <div class="code-msg" id="codeMsg"></div>
   </div>
-  <div class="sync-chip"><span class="sync-dot" id="syncDot"></span><span id="syncText">Checking&hellip;</span></div>
-  <div class="press-hint">Hold the logo 5 seconds for admin</div>
+  <div class="net-chip"><span class="ndot" id="ndot"></span><span id="ntxt">Checking&hellip;</span></div>
   <div class="shell-footer">AKAI DISTRIBUTORS &middot; Internal Use</div>
 </div>
 
-<!-- PIN overlay -->
-<div class="overlay" id="pinOverlay">
-  <div class="pin-box">
+<!-- PIN OVERLAY -->
+<div class="overlay" id="pinOv">
+  <div class="pin-card">
     <div class="pin-title">Admin Access</div>
-    <div class="pin-sub">Enter admin code to continue</div>
+    <div class="pin-sub">Enter your admin PIN</div>
     <input type="password" id="pinInput" inputmode="numeric" maxlength="8" placeholder="&bull;&bull;&bull;&bull;"
-           onkeydown="if(event.key==='Enter'){event.preventDefault();checkPin();}">
-    <div class="pin-msg" id="pinMsg"></div>
-    <div class="pin-btns">
-      <button class="pin-cancel" onclick="closePin()">Cancel</button>
-      <button class="pin-ok" onclick="checkPin()">Enter</button>
+           onkeydown="if(event.key==='Enter')checkPin()">
+    <div class="pin-err" id="pinErr"></div>
+    <div class="pin-row">
+      <button class="pcnl" onclick="closePin()">Cancel</button>
+      <button class="pok" onclick="checkPin()">Enter</button>
     </div>
   </div>
 </div>
 
 <!-- SCREEN 2: MODULE HOST -->
-<div id="moduleScreen">
-  <div class="mod-topbar">
-    <button class="mod-back" onclick="exitModule()">&lsaquo;</button>
-    <div class="mod-tabs" id="modTabs"></div>
+<div id="modScreen">
+  <div class="mod-bar">
+    <button class="back-btn" onclick="exitMod()">&#8249;</button>
+    <div class="page-tabs" id="pageTabs"></div>
   </div>
-  <div class="mod-frames" id="modFrames">
-    <div class="mod-loader hidden" id="modLoader"><div class="spin"></div></div>
+  <div class="sub-bar" id="subBar"></div>
+  <div class="frame-area" id="frameArea">
+    <div class="frame-loader" id="frameLoader">
+      <div class="spin"></div>
+      <div class="load-txt">Loading&hellip;</div>
+    </div>
+    <div class="frame-err" id="frameErr">
+      <div class="ferr-icon">&#128274;</div>
+      <div class="ferr-title">Access Denied / Not Loading</div>
+      <div class="ferr-body">Your Apps Script is <strong>not deployed as a public web app</strong>. This is the most common cause.</div>
+      <div class="fix-box">
+        <b>Fix in 60 seconds:</b><br>
+        1. Open your Apps Script project<br>
+        2. Top-right &rarr; <b>Deploy &rarr; Manage deployments</b><br>
+        3. Click pencil &#9999; to edit<br>
+        4. &ldquo;Who has access&rdquo; &rarr; set to <b>Anyone</b><br>
+        5. Click <b>Deploy</b> &rarr; copy the new <b>/exec URL</b><br>
+        6. Paste it in Admin &rarr; edit this code&rsquo;s URL
+      </div>
+      <button class="retry-btn" onclick="retryFrame()">&#8635; Try Again</button>
+    </div>
   </div>
 </div>
 
 <!-- SCREEN 3: ADMIN -->
 <div id="adminScreen">
-  <div class="admin-top">
-    <button class="mod-back" onclick="exitAdmin()">&lsaquo;</button>
+  <div class="admin-bar">
+    <button class="back-btn" onclick="exitAdmin()">&#8249;</button>
     <h2>Admin Settings</h2>
   </div>
   <div class="admin-body">
-    <div class="admin-card">
-      <div class="admin-card-title">Access Codes</div>
+    <div class="ac">
+      <div class="act">Access Codes</div>
       <div id="codeList"></div>
-      <button class="abtn abtn-primary abtn-full" onclick="openEditor()">&plus; Add New Code</button>
+      <button class="xb xbp xbf" onclick="openEditor()">&#43; Add New Code</button>
     </div>
-    <div class="admin-card">
-      <div class="admin-card-title">Security</div>
-      <div class="admin-field">
-        <label>Admin PIN (to open this panel)</label>
-        <input type="text" id="adminPinField" placeholder="0000">
-      </div>
-      <button class="abtn abtn-accent abtn-full" onclick="saveAdminPin()">Save PIN</button>
+    <div class="ac">
+      <div class="act">Security</div>
+      <div class="af"><label>Admin PIN</label><input type="text" id="adminPinF" placeholder="0000"></div>
+      <button class="xb xba xbf" style="margin-top:10px" onclick="savePin()">Save PIN</button>
     </div>
-    <div class="admin-card">
-      <div class="admin-card-title">Backup / Share Setup</div>
+    <div class="ac">
+      <div class="act">Backup / Share</div>
       <div style="display:flex;gap:8px">
-        <button class="abtn abtn-outline" style="flex:1" onclick="exportConfig()">Export</button>
-        <button class="abtn abtn-outline" style="flex:1" onclick="document.getElementById('importFile').click()">Import</button>
+        <button class="xb xbo" style="flex:1" onclick="exportCfg()">Export</button>
+        <button class="xb xbo" style="flex:1" onclick="document.getElementById('impF').click()">Import</button>
       </div>
-      <input type="file" id="importFile" accept="application/json" style="display:none" onchange="importConfig(event)">
-      <div class="admin-note">Export saves your codes+URLs+PIN as one file. Share it with other phones and Import to copy the exact setup.</div>
+      <input type="file" id="impF" accept="application/json" style="display:none" onchange="importCfg(event)">
+      <div class="anote">Export saves all codes, URLs &amp; PIN as one file. Send to any phone and Import to copy the same setup instantly.</div>
+    </div>
+    <div class="ac">
+      <div class="act">Fix &ldquo;You Need Access&rdquo; Error</div>
+      <div class="fix-box" style="max-width:100%">
+        <b>Your Apps Script must be deployed as a public web app:</b><br>
+        1. Open Apps Script project<br>
+        2. Click <b>Deploy &rarr; Manage deployments</b><br>
+        3. Edit (pencil icon)<br>
+        4. &ldquo;Execute as&rdquo; &rarr; <b>Me</b><br>
+        5. &ldquo;Who has access&rdquo; &rarr; <b>Anyone</b><br>
+        6. Click <b>Deploy</b> &rarr; copy the <b>/exec URL</b><br>
+        7. Paste that URL in Admin for that code
+      </div>
     </div>
   </div>
 </div>
 
 <!-- CODE EDITOR MODAL -->
-<div class="editor-modal" id="editorModal">
-  <div class="editor-sheet">
-    <div class="editor-title">
-      <span id="editorHeading">Add Code</span>
-      <button class="editor-close" onclick="closeEditor()">&times;</button>
+<div class="emod" id="edMod">
+  <div class="esheet">
+    <div class="etitle">
+      <span id="edTitle">Add Code</span>
+      <button class="ecls" onclick="closeEditor()">&times;</button>
     </div>
-    <div class="admin-field">
-      <label>Access Code (what the user types)</label>
-      <input type="text" id="editCode" placeholder="e.g. 1234">
-    </div>
-    <div class="admin-card-title" style="margin-top:6px">Linked Pages</div>
-    <div id="editorMods"></div>
-    <button class="abtn abtn-outline abtn-full" style="margin-top:4px" onclick="addModuleRow()">&plus; Add a Page to this Code</button>
-    <div class="admin-note">
-      Each page becomes a tab. Add 2 or 3 pages under one code to give the user a tabbed multi-page screen. The URL is your deployed website (Google Apps Script <b>/exec</b> URL, or any web page).
-    </div>
+    <div class="af"><label>Access Code (what user types)</label><input type="text" id="editCode" placeholder="e.g. 1234" style="margin-top:4px"></div>
+    <div style="margin-top:14px;font-family:'Syne',sans-serif;font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Pages (each = one tab)</div>
+    <div id="edPages"></div>
+    <button class="xb xbo xbf" style="margin-top:4px" onclick="addPageRow()">&#43; Add Page Tab</button>
+    <div class="anote" style="margin-top:12px">Each <b>Page</b> = one tab at the top. Add 1&ndash;3 pages per code.<br>Under each page you can add <b>multiple Google Sheet / website URLs</b> &mdash; these appear as sub-tabs within that page tab.</div>
     <div style="display:flex;gap:8px;margin-top:16px">
-      <button class="abtn abtn-outline" style="flex:1" onclick="closeEditor()">Cancel</button>
-      <button class="abtn abtn-primary" style="flex:2" onclick="saveCode()">Save Code</button>
+      <button class="xb xbo" style="flex:1" onclick="closeEditor()">Cancel</button>
+      <button class="xb xbp" style="flex:2" onclick="saveCode()">Save Code</button>
     </div>
   </div>
 </div>
 
 <script>
-/* ====================================================================
-   AKAI DISTRIBUTORS  App Shell
-   ==================================================================== */
-
-const DEFAULT_CONFIG = {
-  adminPin: "0000",
-  codes: [
-    { code: "1234", pages: [ { name: "Challan Scanner",  url: "https://script.google.com/macros/s/AKfycbz_VAjxgrMJHPYWmJQAVJKiHtPo7z705wPVNMMXQk0cNj1PcU-9YZ9f7MyjNdP3OjRC/exec" } ] },
-    { code: "2345", pages: [ { name: "Dealer View",      url: "" } ] },
-    { code: "3456", pages: [ { name: "Sales Executive",  url: "" } ] },
-    { code: "4567", pages: [ { name: "Match Sheet",      url: "https://script.google.com/macros/s/AKfycbxXKW92Jb1DebvH7Vy5r6MXxq1O-4-aD88nd_JxaPy7tf0D6EDt81SXdNOv89dcbVco6w/exec" } ] }
+/* ── CONFIG ─────────────────────────────────────────────────────────
+   Structure:
+   { adminPin, codes: [ { code, pages: [ { name, urls: [ { label, url } ] } ] } ] }
+*/
+const DEFAULT = {
+  adminPin:"0000",
+  codes:[
+    { code:"1234", pages:[ { name:"Challan Scanner", urls:[ {label:"Challan",url:""} ] } ] },
+    { code:"2345", pages:[ { name:"Dealer View",     urls:[ {label:"Dealer",url:""} ] } ] },
+    { code:"3456", pages:[ { name:"Sales Executive", urls:[ {label:"Sales",url:""} ] } ] },
+    { code:"4567", pages:[ { name:"Match Sheet",     urls:[ {label:"Match",url:""}, {label:"Stock",url:""} ] } ] }
   ]
 };
 
-const Store = {
-  get(key, fallback) { try { const v = localStorage.getItem(key); return v !== null ? v : fallback; } catch (e) { return fallback; } },
-  set(key, val) { try { localStorage.setItem(key, val); } catch (e) {} }
-};
+function sget(k,fb){ try{ const v=localStorage.getItem(k); return v!==null?v:fb; }catch(e){ return fb; } }
+function sset(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
 
-let CONFIG = loadConfig();
-
-function loadConfig() {
-  const raw = Store.get("akai_config", null);
-  if (!raw) { saveConfig(DEFAULT_CONFIG); return JSON.parse(JSON.stringify(DEFAULT_CONFIG)); }
-  try {
-    const parsed = JSON.parse(raw);
-    if (!parsed.codes) parsed.codes = [];
-    if (!parsed.adminPin) parsed.adminPin = "0000";
-    return parsed;
-  } catch (e) { return JSON.parse(JSON.stringify(DEFAULT_CONFIG)); }
-}
-function saveConfig(cfg) { Store.set("akai_config", JSON.stringify(cfg)); }
-
-function showToast(msg, type = "info", dur = 2600) {
-  const icons = { success: "\u2705", error: "\u274c", warning: "\u26a0\ufe0f", info: "\u2139\ufe0f" };
-  const c = document.getElementById("toastContainer");
-  const t = document.createElement("div");
-  t.className = "toast " + type;
-  t.innerHTML = '<span>' + (icons[type] || "\u2022") + '</span><span></span>';
-  t.lastChild.textContent = msg;
-  c.appendChild(t);
-  setTimeout(() => { t.style.opacity = "0"; t.style.transition = "opacity .25s"; setTimeout(() => t.remove(), 260); }, dur);
-}
-
-function updateSyncChip() {
-  const online = navigator.onLine;
-  document.getElementById("syncDot").className = "sync-dot " + (online ? "online" : "offline");
-  document.getElementById("syncText").textContent = online ? "Online" : "Offline";
-}
-window.addEventListener("online", updateSyncChip);
-window.addEventListener("offline", updateSyncChip);
-
-/* ====================================================================
-   LONG-PRESS LOGO (5s) — proper implementation, no bugs
-   ==================================================================== */
-(function initLogoPress() {
-  const logo = document.getElementById("shellLogo");
-  let timer = null;
-  let cancelled = false;
-
-  function start(ev) {
-    if (ev && ev.cancelable) ev.preventDefault();
-    cancelled = false;
-    logo.classList.remove("pressing");
-    // force reflow so the CSS transition restarts
-    void logo.offsetWidth;
-    logo.classList.add("pressing");
-    if (timer) clearTimeout(timer);
-    timer = setTimeout(() => {
-      if (!cancelled) {
-        logo.classList.remove("pressing");
-        if (navigator.vibrate) try { navigator.vibrate(30); } catch(e){}
-        openPin();
-      }
-    }, 5000);
-  }
-  function cancel() {
-    cancelled = true;
-    logo.classList.remove("pressing");
-    if (timer) { clearTimeout(timer); timer = null; }
-  }
-
-  // Pointer events cover mouse + touch on modern browsers
-  if (window.PointerEvent) {
-    logo.addEventListener("pointerdown", start);
-    logo.addEventListener("pointerup", cancel);
-    logo.addEventListener("pointerleave", cancel);
-    logo.addEventListener("pointercancel", cancel);
-  } else {
-    logo.addEventListener("touchstart", start, { passive: false });
-    logo.addEventListener("touchend", cancel);
-    logo.addEventListener("touchcancel", cancel);
-    logo.addEventListener("mousedown", start);
-    logo.addEventListener("mouseup", cancel);
-    logo.addEventListener("mouseleave", cancel);
-  }
-  // prevent long-press context menu
-  logo.addEventListener("contextmenu", e => e.preventDefault());
+let CFG = (function(){
+  const raw=sget("akai_cfg",null);
+  if(!raw){ sset("akai_cfg",JSON.stringify(DEFAULT)); return JSON.parse(JSON.stringify(DEFAULT)); }
+  try{
+    const p=JSON.parse(raw);
+    if(!p.codes) p.codes=[];
+    if(!p.adminPin) p.adminPin="0000";
+    // migrate old format (single url string per page -> urls array)
+    p.codes.forEach(c=>(c.pages||[]).forEach(pg=>{
+      if(!pg.urls){ pg.urls=[{label:pg.name||"Page",url:pg.url||""}]; delete pg.url; }
+    }));
+    return p;
+  }catch(e){ return JSON.parse(JSON.stringify(DEFAULT)); }
 })();
 
-function openPin() {
-  document.getElementById("pinOverlay").classList.add("open");
-  document.getElementById("pinInput").value = "";
-  document.getElementById("pinMsg").textContent = "";
-  setTimeout(() => document.getElementById("pinInput").focus(), 100);
-}
-function closePin() { document.getElementById("pinOverlay").classList.remove("open"); }
-function checkPin() {
-  const v = document.getElementById("pinInput").value.trim();
-  if (v === String(CONFIG.adminPin)) { closePin(); openAdmin(); }
-  else { document.getElementById("pinMsg").textContent = "Incorrect code"; document.getElementById("pinInput").value = ""; }
-}
+function saveCFG(){ sset("akai_cfg",JSON.stringify(CFG)); }
 
-function openByCode() {
-  const code = document.getElementById("codeInput").value.trim();
-  const msg = document.getElementById("codeMsg");
-  if (!code) { msg.className = "code-msg error"; msg.textContent = "Enter a code"; return; }
-  const entry = CONFIG.codes.find(c => String(c.code) === code);
-  if (!entry) { msg.className = "code-msg error"; msg.textContent = "No pages linked to this code"; return; }
-  if (!entry.pages || entry.pages.length === 0) { msg.className = "code-msg error"; msg.textContent = "This code has no pages yet"; return; }
-  // Ensure every page has a URL
-  const missing = entry.pages.filter(p => !p.url);
-  if (missing.length) { msg.className = "code-msg error"; msg.textContent = "One or more pages have no URL set (edit in Admin)"; return; }
-  msg.className = "code-msg ok"; msg.textContent = "Opening...";
-  setTimeout(() => { msg.textContent = ""; launchModules(entry); }, 120);
+/* ── TOAST ── */
+function toast(msg,type,dur){
+  type=type||"ok"; dur=dur||2600;
+  const ic={ok:"✅",er:"❌",wa:"⚠️"};
+  const w=document.getElementById("toastWrap");
+  const t=document.createElement("div"); t.className="toast "+type;
+  const s=document.createElement("span"); s.textContent=ic[type]||"ℹ️";
+  const m=document.createElement("span"); m.textContent=msg;
+  t.appendChild(s); t.appendChild(m); w.appendChild(t);
+  setTimeout(()=>{ t.style.cssText="opacity:0;transition:opacity .25s"; setTimeout(()=>t.remove(),260); },dur);
 }
 
-function launchModules(entry) {
-  const tabsEl = document.getElementById("modTabs");
-  const framesEl = document.getElementById("modFrames");
-  tabsEl.innerHTML = "";
-  // keep the loader element
-  framesEl.querySelectorAll(".mod-frame").forEach(f => f.remove());
+/* ── NETWORK ── */
+function upNet(){
+  const on=navigator.onLine;
+  document.getElementById("ndot").className="ndot "+(on?"on":"off");
+  document.getElementById("ntxt").textContent=on?"Online":"Offline";
+}
+window.addEventListener("online",upNet); window.addEventListener("offline",upNet);
 
-  const pages = entry.pages;
-  const multi = pages.length > 1;
-  const loader = document.getElementById("modLoader");
-  loader.classList.remove("hidden");
-  let loadedCount = 0;
+/* ── LOGO 3-CLICK ADMIN ── */
+let _lc=0, _lt=null;
+function logoClick(){
+  _lc++;
+  const lb=document.getElementById("logoBox");
+  lb.classList.remove("c1","c2","c3");
+  void lb.offsetWidth; // reflow so CSS animates
+  lb.classList.add("c"+Math.min(_lc,3));
+  clearTimeout(_lt);
+  if(_lc>=3){ _lc=0; lb.classList.remove("c1","c2","c3"); openPin(); return; }
+  _lt=setTimeout(()=>{ _lc=0; lb.classList.remove("c1","c2","c3"); },1400);
+}
 
-  pages.forEach((pg, idx) => {
-    const tab = document.createElement("button");
-    tab.className = "mod-tab" + (idx === 0 ? " active" : "");
-    tab.textContent = pg.name || ("Page " + (idx + 1));
-    tab.onclick = () => activateFrame(idx);
-    if (!multi) tab.style.pointerEvents = "none";
-    tabsEl.appendChild(tab);
+/* ── PIN ── */
+function openPin(){
+  document.getElementById("pinOv").classList.add("open");
+  document.getElementById("pinInput").value="";
+  document.getElementById("pinErr").textContent="";
+  setTimeout(()=>document.getElementById("pinInput").focus(),80);
+}
+function closePin(){ document.getElementById("pinOv").classList.remove("open"); }
+function checkPin(){
+  if(document.getElementById("pinInput").value.trim()===String(CFG.adminPin)){ closePin(); openAdmin(); }
+  else{ document.getElementById("pinErr").textContent="Incorrect PIN"; document.getElementById("pinInput").value=""; }
+}
 
-    const frame = document.createElement("iframe");
-    frame.className = "mod-frame" + (idx === 0 ? " active" : "");
-    frame.setAttribute("allow", "camera;microphone;fullscreen;geolocation;clipboard-read;clipboard-write");
-    frame.setAttribute("allowfullscreen", "true");
-    frame.dataset.idx = idx;
-    frame.src = pg.url;
-    frame.addEventListener("load", () => {
-      loadedCount++;
-      if (loadedCount >= pages.length) loader.classList.add("hidden");
-    });
-    framesEl.appendChild(frame);
+/* ── OPEN BY CODE ── */
+function openByCode(){
+  const code=document.getElementById("codeInput").value.trim();
+  const msg=document.getElementById("codeMsg");
+  msg.className="code-msg";
+  if(!code){ msg.className="code-msg err"; msg.textContent="Enter a code"; return; }
+  const entry=CFG.codes.find(c=>String(c.code)===code);
+  if(!entry){ msg.className="code-msg err"; msg.textContent="Code not found"; return; }
+  if(!entry.pages||!entry.pages.length){ msg.className="code-msg err"; msg.textContent="No pages linked — edit in Admin"; return; }
+  // Check at least one URL exists
+  const hasUrl=entry.pages.some(p=>(p.urls||[]).some(u=>u.url));
+  if(!hasUrl){ msg.className="code-msg err"; msg.textContent="URLs not set — edit this code in Admin"; return; }
+  msg.className="code-msg ok"; msg.textContent="Opening…";
+  setTimeout(()=>{ msg.textContent=""; launchMod(entry); },80);
+}
+
+/* ── MODULE LAUNCHER ── */
+let _entry=null, _ap=0, _as=0, _fmap={};
+
+function launchMod(entry){
+  _entry=entry; _ap=0; _as=0; _fmap={};
+  // Clear old frames
+  const fa=document.getElementById("frameArea");
+  fa.querySelectorAll(".mod-frame").forEach(f=>f.remove());
+  document.getElementById("frameLoader").classList.remove("gone");
+  document.getElementById("frameErr").classList.remove("show");
+  // Build page tabs
+  const pt=document.getElementById("pageTabs"); pt.innerHTML="";
+  const multi=entry.pages.length>1;
+  entry.pages.forEach((pg,pi)=>{
+    const btn=document.createElement("button");
+    btn.className="ptab"+(pi===0?" on":"");
+    btn.textContent=pg.name||("Page "+(pi+1));
+    if(!multi) btn.style.pointerEvents="none";
+    btn.onclick=()=>switchPage(pi);
+    pt.appendChild(btn);
   });
-
-  // Fallback: hide loader after 8s even if load event didn't fire
-  setTimeout(() => loader.classList.add("hidden"), 8000);
-
-  document.getElementById("shellScreen").style.display = "none";
-  document.getElementById("moduleScreen").classList.add("active");
-}
-function activateFrame(idx) {
-  document.querySelectorAll("#modTabs .mod-tab").forEach((t, i) => t.classList.toggle("active", i === idx));
-  document.querySelectorAll("#modFrames .mod-frame").forEach((f, i) => f.classList.toggle("active", i === idx));
-}
-function exitModule() {
-  document.getElementById("moduleScreen").classList.remove("active");
-  const framesEl = document.getElementById("modFrames");
-  framesEl.querySelectorAll(".mod-frame").forEach(f => f.remove());
-  document.getElementById("modTabs").innerHTML = "";
-  document.getElementById("shellScreen").style.display = "flex";
-  document.getElementById("codeInput").value = "";
+  document.getElementById("shellScreen").style.display="none";
+  document.getElementById("modScreen").classList.add("show");
+  buildSubBar(0);
+  loadFrame(0,0);
 }
 
-function openAdmin() {
-  document.getElementById("shellScreen").style.display = "none";
-  document.getElementById("adminScreen").classList.add("active");
-  document.getElementById("adminPinField").value = CONFIG.adminPin;
+function switchPage(pi){
+  _ap=pi; _as=0;
+  document.querySelectorAll(".ptab").forEach((t,i)=>t.classList.toggle("on",i===pi));
+  buildSubBar(pi);
+  loadFrame(pi,0);
+}
+
+function buildSubBar(pi){
+  const pg=_entry.pages[pi]; const urls=pg.urls||[];
+  const bar=document.getElementById("subBar"); bar.innerHTML="";
+  if(urls.length>1){
+    bar.classList.add("show");
+    urls.forEach((u,si)=>{
+      const btn=document.createElement("button");
+      btn.className="stab"+(si===0?" on":"");
+      btn.textContent=u.label||("Sheet "+(si+1));
+      btn.onclick=()=>switchSub(pi,si);
+      bar.appendChild(btn);
+    });
+  }else{ bar.classList.remove("show"); }
+  _as=0;
+}
+
+function switchSub(pi,si){
+  _as=si;
+  document.querySelectorAll(".stab").forEach((t,i)=>t.classList.toggle("on",i===si));
+  loadFrame(pi,si);
+}
+
+function loadFrame(pi,si){
+  const pg=_entry.pages[pi];
+  const urlObj=(pg.urls||[])[si]; const url=urlObj&&urlObj.url;
+  document.getElementById("frameLoader").classList.remove("gone");
+  document.getElementById("frameErr").classList.remove("show");
+  document.querySelectorAll(".mod-frame").forEach(f=>f.classList.remove("on"));
+  const key=pi+"_"+si;
+  if(_fmap[key]){ _fmap[key].classList.add("on"); document.getElementById("frameLoader").classList.add("gone"); return; }
+  if(!url){ document.getElementById("frameLoader").classList.add("gone"); showFErr(); return; }
+  const fr=document.createElement("iframe");
+  fr.className="mod-frame on";
+  fr.setAttribute("allow","camera;microphone;fullscreen;geolocation;clipboard-read;clipboard-write");
+  fr.setAttribute("allowfullscreen","");
+  _fmap[key]=fr;
+  let done=false;
+  const to=setTimeout(()=>{ if(!done){ document.getElementById("frameLoader").classList.add("gone"); } },15000);
+  fr.onload=()=>{
+    done=true; clearTimeout(to);
+    document.getElementById("frameLoader").classList.add("gone");
+    // Detect Google sign-in page (best-effort, cross-origin blocked)
+    try{
+      const title=(fr.contentDocument&&fr.contentDocument.title)||"";
+      const body=(fr.contentDocument&&fr.contentDocument.body&&fr.contentDocument.body.innerText)||"";
+      if(title.toLowerCase().includes("sign in")||body.includes("You need access")||body.includes("request access")){
+        showFErr();
+      }
+    }catch(e){ /* expected cross-origin */ }
+  };
+  fr.onerror=()=>{ clearTimeout(to); document.getElementById("frameLoader").classList.add("gone"); showFErr(); };
+  fr.src=url;
+  document.getElementById("frameArea").appendChild(fr);
+}
+
+function showFErr(){ document.getElementById("frameErr").classList.add("show"); }
+function retryFrame(){
+  document.getElementById("frameErr").classList.remove("show");
+  const key=_ap+"_"+_as;
+  if(_fmap[key]){ _fmap[key].remove(); delete _fmap[key]; }
+  loadFrame(_ap,_as);
+}
+
+function exitMod(){
+  document.getElementById("modScreen").classList.remove("show");
+  document.getElementById("frameArea").querySelectorAll(".mod-frame").forEach(f=>f.remove());
+  document.getElementById("subBar").innerHTML=""; document.getElementById("subBar").classList.remove("show");
+  _fmap={};
+  document.getElementById("shellScreen").style.display="flex";
+  document.getElementById("codeInput").value="";
+}
+
+/* ── ADMIN ── */
+function openAdmin(){
+  document.getElementById("shellScreen").style.display="none";
+  document.getElementById("adminScreen").classList.add("show");
+  document.getElementById("adminPinF").value=CFG.adminPin;
   renderCodeList();
 }
-function exitAdmin() {
-  document.getElementById("adminScreen").classList.remove("active");
-  document.getElementById("shellScreen").style.display = "flex";
+function exitAdmin(){
+  document.getElementById("adminScreen").classList.remove("show");
+  document.getElementById("shellScreen").style.display="flex";
 }
-function renderCodeList() {
-  const list = document.getElementById("codeList");
-  if (!CONFIG.codes.length) { list.innerHTML = '<div class="empty-hint">No codes yet. Add one to get started.</div>'; return; }
-  list.innerHTML = "";
-  CONFIG.codes.forEach((c, ci) => {
-    const pagesHtml = (c.pages || []).map(p =>
-      '<div class="mod-chip"><span class="mod-chip-name">' + escapeHtml(p.name || "Page") + '</span></div>'
-    ).join("");
-    const div = document.createElement("div");
-    div.className = "code-item";
-    div.innerHTML =
-      '<div class="code-item-head">' +
-      '<span class="code-item-code">' + escapeHtml(c.code) + '</span>' +
-      '<div class="code-item-actions">' +
-      '<button class="abtn abtn-outline abtn-sm" onclick="openEditor(' + ci + ')">Edit</button>' +
-      '<button class="abtn abtn-danger abtn-sm" onclick="deleteCode(' + ci + ')">Delete</button>' +
-      '</div></div>' +
-      (pagesHtml || '<div class="empty-hint" style="padding:8px">No pages linked</div>');
-    list.appendChild(div);
+function renderCodeList(){
+  const list=document.getElementById("codeList");
+  if(!CFG.codes.length){ list.innerHTML='<div class="empty-note">No codes yet.</div>'; return; }
+  list.innerHTML="";
+  CFG.codes.forEach((c,ci)=>{
+    const pHtml=(c.pages||[]).map(pg=>{
+      const uLines=(pg.urls||[]).map(u=>'<span style="display:block">&bull; '+esc(u.label||"Sheet")+": "+esc(u.url||"(no url)")+"</span>").join("");
+      return '<div class="pg-chip"><div class="pg-chip-name">'+esc(pg.name||"Page")+'</div><div class="pg-chip-urls">'+uLines+'</div></div>';
+    }).join("");
+    const d=document.createElement("div"); d.className="code-item";
+    d.innerHTML='<div class="ci-head"><span class="ci-code">'+esc(c.code)+'</span>'+
+      '<div class="ci-acts"><button class="xb xbo xbs" onclick="openEditor('+ci+')">Edit</button>'+
+      '<button class="xb xbr xbs" onclick="delCode('+ci+')">Delete</button></div></div>'+pHtml;
+    list.appendChild(d);
   });
 }
-function escapeHtml(s) {
-  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-}
-function deleteCode(ci) {
-  if (!confirm("Delete code " + CONFIG.codes[ci].code + "?")) return;
-  CONFIG.codes.splice(ci, 1);
-  saveConfig(CONFIG); renderCodeList();
-  showToast("Code deleted", "success");
-}
-function saveAdminPin() {
-  const v = document.getElementById("adminPinField").value.trim();
-  if (!v) { showToast("PIN can't be empty", "error"); return; }
-  CONFIG.adminPin = v; saveConfig(CONFIG);
-  showToast("Admin PIN saved", "success");
-}
+function esc(s){ return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function delCode(ci){ if(!confirm("Delete code "+CFG.codes[ci].code+"?")) return; CFG.codes.splice(ci,1); saveCFG(); renderCodeList(); toast("Code deleted"); }
+function savePin(){ const v=document.getElementById("adminPinF").value.trim(); if(!v){ toast("PIN can't be empty","er"); return; } CFG.adminPin=v; saveCFG(); toast("Admin PIN saved"); }
+function exportCfg(){ const b=new Blob([JSON.stringify(CFG,null,2)],{type:"application/json"}); const a=document.createElement("a"); a.href=URL.createObjectURL(b); a.download="akai_config.json"; a.click(); toast("Config exported"); }
+function importCfg(ev){ const f=ev.target.files[0]; if(!f) return; const r=new FileReader(); r.onload=()=>{ try{ const c=JSON.parse(r.result); if(!c.codes) throw 0; CFG=c; if(!CFG.adminPin) CFG.adminPin="0000"; saveCFG(); document.getElementById("adminPinF").value=CFG.adminPin; renderCodeList(); toast("Config imported"); }catch(e){ toast("Invalid file","er"); } }; r.readAsText(f); ev.target.value=""; }
 
-let editingIndex = -1;
-function openEditor(ci) {
-  editingIndex = (typeof ci === "number") ? ci : -1;
-  document.getElementById("editorHeading").textContent = editingIndex >= 0 ? "Edit Code" : "Add Code";
-  const modsEl = document.getElementById("editorMods");
-  modsEl.innerHTML = "";
-  if (editingIndex >= 0) {
-    const c = CONFIG.codes[editingIndex];
-    document.getElementById("editCode").value = c.code;
-    (c.pages || []).forEach(p => addModuleRow(p));
-    if (!c.pages || c.pages.length === 0) addModuleRow();
-  } else {
-    document.getElementById("editCode").value = "";
-    addModuleRow();
+/* ── CODE EDITOR ── */
+let _eidx=-1;
+function openEditor(ci){
+  _eidx=(typeof ci==="number")?ci:-1;
+  document.getElementById("edTitle").textContent=_eidx>=0?"Edit Code":"Add Code";
+  document.getElementById("edPages").innerHTML="";
+  if(_eidx>=0){ const c=CFG.codes[_eidx]; document.getElementById("editCode").value=c.code; (c.pages||[]).forEach(pg=>addPageRow(pg)); if(!c.pages||!c.pages.length) addPageRow(); }
+  else{ document.getElementById("editCode").value=""; addPageRow(); }
+  document.getElementById("edMod").classList.add("open");
+}
+function closeEditor(){ document.getElementById("edMod").classList.remove("open"); }
+
+function addPageRow(pg){
+  pg=pg||{name:"",urls:[{label:"",url:""}]};
+  const wrap=document.getElementById("edPages");
+  const row=document.createElement("div"); row.className="per";
+
+  // Header
+  const hd=document.createElement("div"); hd.className="per-head";
+  const hl=document.createElement("span"); hl.className="per-lbl"; hl.textContent="Page Tab";
+  const hd2=document.createElement("button"); hd2.className="xb xbr xbs"; hd2.textContent="Remove"; hd2.onclick=()=>row.remove();
+  hd.appendChild(hl); hd.appendChild(hd2);
+
+  // Page name input
+  const ni=document.createElement("input"); ni.type="text"; ni.className="pg-name-inp er-pg-name";
+  ni.placeholder="Tab name (e.g. Challan Scanner)"; ni.value=pg.name||"";
+
+  // URLs section
+  const ul=document.createElement("div"); ul.className="urls-lbl"; ul.textContent="Google Sheet / Website URLs";
+  const ulist=document.createElement("div"); ulist.className="url-list";
+
+  function addUrlEntry(u){
+    u=u||{label:"",url:""};
+    const ue=document.createElement("div"); ue.className="url-entry";
+    const li=document.createElement("input"); li.type="text"; li.className="ue-lbl er-url-lbl";
+    li.placeholder="Sub-tab label (e.g. Main Sheet, Stock View)"; li.value=u.label||"";
+    const ur=document.createElement("div"); ur.className="ue-url-row";
+    const ui=document.createElement("input"); ui.type="text"; ui.className="ue-url er-url-val";
+    ui.placeholder="https://script.google.com/…/exec or full website URL"; ui.value=u.url||"";
+    const db=document.createElement("button"); db.className="ue-del"; db.innerHTML="&times;"; db.title="Remove this URL"; db.onclick=()=>ue.remove();
+    ur.appendChild(ui); ur.appendChild(db);
+    ue.appendChild(li); ue.appendChild(ur);
+    ulist.appendChild(ue);
   }
-  document.getElementById("editorModal").classList.add("open");
-}
-function closeEditor() { document.getElementById("editorModal").classList.remove("open"); }
 
-function addModuleRow(pg) {
-  pg = pg || { name: "", url: "" };
-  const wrap = document.getElementById("editorMods");
-  const row = document.createElement("div");
-  row.className = "mod-editor-row";
-  row.innerHTML =
-    '<div class="admin-field" style="margin-bottom:8px"><label>Page Name (tab label)</label>' +
-    '<input type="text" class="er-name" placeholder="e.g. Challan Scanner"></div>' +
-    '<div class="admin-field" style="margin-bottom:8px"><label>URL (deployed website / Apps Script)</label>' +
-    '<input type="text" class="er-url" placeholder="https://script.google.com/&hellip;/exec"></div>' +
-    '<button class="abtn abtn-danger abtn-sm" onclick="this.closest(\'.mod-editor-row\').remove()">Remove Page</button>';
+  ((pg.urls&&pg.urls.length)?pg.urls:[{label:"",url:""}]).forEach(addUrlEntry);
+
+  const addUBtn=document.createElement("button"); addUBtn.className="add-url-btn";
+  addUBtn.innerHTML="&#43; Add another Google Sheet / URL";
+  addUBtn.onclick=()=>addUrlEntry();
+
+  row.appendChild(hd); row.appendChild(ni); row.appendChild(ul); row.appendChild(ulist); row.appendChild(addUBtn);
   wrap.appendChild(row);
-  row.querySelector(".er-name").value = pg.name || "";
-  row.querySelector(".er-url").value = pg.url || "";
 }
-function saveCode() {
-  const code = document.getElementById("editCode").value.trim();
-  if (!code) { showToast("Enter an access code", "error"); return; }
-  const dup = CONFIG.codes.findIndex((c, i) => String(c.code) === code && i !== editingIndex);
-  if (dup >= 0) { showToast("That code already exists", "error"); return; }
-  const rows = [...document.querySelectorAll("#editorMods .mod-editor-row")];
-  if (!rows.length) { showToast("Add at least one page", "error"); return; }
-  const pages = [];
-  for (const r of rows) {
-    const name = r.querySelector(".er-name").value.trim();
-    const url = r.querySelector(".er-url").value.trim();
-    if (!name) { showToast("Page name required", "error"); return; }
-    if (!url) { showToast('"' + name + '" needs a URL', "error"); return; }
-    pages.push({ name, url });
+
+function saveCode(){
+  const code=document.getElementById("editCode").value.trim();
+  if(!code){ toast("Enter an access code","er"); return; }
+  const dup=CFG.codes.findIndex((c,i)=>String(c.code)===code&&i!==_eidx);
+  if(dup>=0){ toast("That code already exists","er"); return; }
+  const pageRows=[...document.querySelectorAll("#edPages .per")];
+  if(!pageRows.length){ toast("Add at least one page tab","er"); return; }
+  const pages=[];
+  for(const row of pageRows){
+    const name=row.querySelector(".er-pg-name").value.trim();
+    if(!name){ toast("Each page tab needs a name","er"); return; }
+    const urlEntries=[...row.querySelectorAll(".url-entry")];
+    if(!urlEntries.length){ toast('"'+name+'" needs at least one URL',"er"); return; }
+    const urls=[];
+    for(const ue of urlEntries){
+      const label=ue.querySelector(".er-url-lbl").value.trim();
+      const url=ue.querySelector(".er-url-val").value.trim();
+      if(!url){ toast('"'+name+'" has a blank URL — fill it or remove it',"er"); return; }
+      urls.push({label:label||name, url});
+    }
+    pages.push({name,urls});
   }
-  const entry = { code, pages };
-  if (editingIndex >= 0) CONFIG.codes[editingIndex] = entry;
-  else CONFIG.codes.push(entry);
-  saveConfig(CONFIG);
-  closeEditor(); renderCodeList();
-  showToast("Code saved", "success");
+  if(_eidx>=0) CFG.codes[_eidx]={code,pages};
+  else CFG.codes.push({code,pages});
+  saveCFG(); closeEditor(); renderCodeList();
+  toast("Code saved \u2705");
 }
 
-function exportConfig() {
-  const blob = new Blob([JSON.stringify(CONFIG, null, 2)], { type: "application/json" });
-  const a = document.createElement("a");
-  a.href = URL.createObjectURL(blob);
-  a.download = "akai_config.json";
-  a.click();
-  showToast("Config exported", "success");
-}
-function importConfig(ev) {
-  const file = ev.target.files[0]; if (!file) return;
-  const reader = new FileReader();
-  reader.onload = () => {
-    try {
-      const cfg = JSON.parse(reader.result);
-      if (!cfg.codes) throw new Error("bad file");
-      CONFIG = cfg; if (!CONFIG.adminPin) CONFIG.adminPin = "0000";
-      saveConfig(CONFIG);
-      document.getElementById("adminPinField").value = CONFIG.adminPin;
-      renderCodeList();
-      showToast("Config imported", "success");
-    } catch (e) { showToast("Invalid config file", "error"); }
+/* ── LOGO IMAGE (optional) ── */
+(function(){
+  const img=new Image();
+  img.onload=()=>{
+    const box=document.getElementById("logoBox");
+    const fb=document.getElementById("logoFB"); if(fb) fb.style.display="none";
+    const i=document.createElement("img"); i.src="assets/logo.png";
+    i.style.cssText="pointer-events:none;position:relative;z-index:1;width:100%;height:100%;object-fit:cover";
+    box.insertBefore(i, box.querySelector(".click-ring").nextSibling);
   };
-  reader.readAsText(file);
-  ev.target.value = "";
-}
-
-/* Try to load logo image if present */
-(function tryLogo() {
-  const img = new Image();
-  img.onload = () => {
-    const el = document.getElementById("shellLogo");
-    const fb = document.getElementById("logoFallback");
-    if (fb) fb.style.display = "none";
-    const i = document.createElement("img");
-    i.src = "assets/logo.png";
-    i.style.pointerEvents = "none";
-    el.insertBefore(i, el.firstChild.nextSibling);
-  };
-  img.onerror = () => {};
-  img.src = "assets/logo.png";
+  img.onerror=()=>{};
+  img.src="assets/logo.png";
 })();
 
-updateSyncChip();
+upNet();
 </script>
 </body>
 </html>
