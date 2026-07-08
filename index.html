@@ -6,36 +6,45 @@
 <title>AKAI DISTRIBUTORS</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-:root{--navy:#0d1b3e;--navy2:#162250;--blue:#1a56db;--blue2:#3b82f6;--accent:#f59e0b;--green:#10b981;--red:#ef4444;--orange:#f97316;--border:#d1daf7;--text:#1e293b;--muted:#64748b;--shadow:0 4px 24px rgba(13,27,62,.10);--r:14px;--rs:8px}
+:root{
+  --navy:#0d1b3e;--navy2:#162250;--blue:#1a56db;--blue2:#3b82f6;
+  --accent:#f59e0b;--green:#10b981;--red:#ef4444;--orange:#f97316;
+  --border:#d1daf7;--text:#1e293b;--muted:#64748b;
+  --shadow:0 4px 24px rgba(13,27,62,.10);--r:14px;--rs:8px;
+}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%;overflow-x:hidden}
 body{font-family:'DM Sans',sans-serif;background:linear-gradient(135deg,#e8eeff 0%,#f4f7ff 60%,#fdf6e3 100%);min-height:100vh;color:var(--text);-webkit-tap-highlight-color:transparent}
+
+/* ══ CODE ENTRY ══ */
 #shellScreen{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px 20px}
 .logo-wrap{display:flex;flex-direction:column;align-items:center;margin-bottom:36px}
 .logo-box{width:100px;height:100px;background:linear-gradient(135deg,var(--navy),var(--navy2));border-radius:24px;display:flex;align-items:center;justify-content:center;box-shadow:0 12px 40px rgba(13,27,62,.28);cursor:pointer;position:relative;overflow:hidden;transition:transform .1s;-webkit-user-select:none;user-select:none}
 .logo-box:active{transform:scale(.92)}
-.logo-box img{width:100%;height:100%;object-fit:cover;pointer-events:none}
+.logo-box img{width:100%;height:100%;object-fit:cover;pointer-events:none;position:absolute;inset:0}
 .logo-fallback{font-family:'Syne',sans-serif;font-weight:800;font-size:34px;color:var(--accent);pointer-events:none;position:relative;z-index:1}
-.click-ring{position:absolute;inset:0;border-radius:24px;border:4px solid transparent;pointer-events:none;z-index:2;transition:border-color .15s,box-shadow .15s}
-.logo-box.c1 .click-ring{border-color:rgba(245,158,11,.45);box-shadow:inset 0 0 0 2px rgba(245,158,11,.2)}
-.logo-box.c2 .click-ring{border-color:rgba(245,158,11,.8);box-shadow:inset 0 0 0 2px rgba(245,158,11,.4)}
-.logo-box.c3 .click-ring{border-color:var(--accent);box-shadow:inset 0 0 0 2px rgba(245,158,11,.6)}
+.click-ring{position:absolute;inset:0;border-radius:24px;border:4px solid transparent;pointer-events:none;z-index:2;transition:border-color .12s,box-shadow .12s}
+.logo-box.c1 .click-ring{border-color:rgba(245,158,11,.45)}
+.logo-box.c2 .click-ring{border-color:rgba(245,158,11,.85)}
+.logo-box.c3 .click-ring{border-color:var(--accent);box-shadow:0 0 0 4px rgba(245,158,11,.2)}
 .brand-name{font-family:'Syne',sans-serif;font-weight:800;font-size:22px;color:var(--navy);margin-top:16px;letter-spacing:.3px}
 .brand-sub{font-size:11px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-top:3px}
-.click-hint{font-size:10px;color:var(--muted);margin-top:8px;opacity:.55;letter-spacing:.3px}
+
 .code-card{background:#fff;border-radius:20px;box-shadow:var(--shadow);padding:24px 20px;width:100%;max-width:360px;border:1px solid rgba(209,218,247,.6)}
 .code-label{font-family:'Syne',sans-serif;font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1.2px;text-align:center;margin-bottom:16px}
 #codeInput{width:100%;padding:15px;font-size:28px;font-family:'Syne',sans-serif;font-weight:700;letter-spacing:10px;text-align:center;border:2px solid var(--border);border-radius:12px;background:#f8faff;color:var(--navy);outline:none;transition:border .2s}
 #codeInput:focus{border-color:var(--blue2);background:#fff}
 #codeInput::placeholder{letter-spacing:4px;font-size:16px;color:#cbd5e1}
-.open-btn{width:100%;margin-top:14px;padding:14px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;border:none;border-radius:12px;background:linear-gradient(135deg,var(--blue),var(--blue2));color:#fff;cursor:pointer}
+.open-btn{width:100%;margin-top:14px;padding:14px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;border:none;border-radius:12px;background:linear-gradient(135deg,var(--blue),var(--blue2));color:#fff;cursor:pointer;transition:opacity .15s,transform .1s}
 .open-btn:active{opacity:.85;transform:scale(.98)}
 .code-msg{text-align:center;font-size:12px;margin-top:12px;min-height:16px;font-weight:500}
 .code-msg.err{color:var(--red)}.code-msg.ok{color:var(--green)}
-.net-chip{display:inline-flex;align-items:center;gap:5px;font-size:10px;color:var(--muted);margin-top:12px;background:rgba(255,255,255,.7);border:1px solid var(--border);border-radius:14px;padding:4px 10px}
-.ndot{width:6px;height:6px;border-radius:50%;flex-shrink:0;background:var(--muted)}
-.ndot.on{background:var(--green)}.ndot.off{background:var(--orange)}
-.shell-footer{margin-top:16px;font-size:10px;color:var(--muted);opacity:.55}
+.net-chip{display:inline-flex;align-items:center;gap:5px;font-size:10px;color:var(--muted);margin-top:14px;background:rgba(255,255,255,.7);border:1px solid var(--border);border-radius:14px;padding:4px 10px}
+.ndot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.ndot.on{background:var(--green)}.ndot.off{background:var(--orange)}.ndot.uk{background:var(--muted)}
+.shell-footer{margin-top:14px;font-size:10px;color:var(--muted);opacity:.5}
+
+/* ══ PIN OVERLAY ══ */
 .overlay{position:fixed;inset:0;background:rgba(13,27,62,.65);z-index:8000;display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px)}
 .overlay.open{display:flex}
 .pin-card{background:#fff;border-radius:20px;padding:26px 22px;width:100%;max-width:320px;box-shadow:0 20px 60px rgba(0,0,0,.3)}
@@ -47,36 +56,46 @@ body{font-family:'DM Sans',sans-serif;background:linear-gradient(135deg,#e8eeff 
 .pin-row button{flex:1;padding:12px;font-size:14px;font-weight:600;border:none;border-radius:10px;cursor:pointer;font-family:'DM Sans',sans-serif}
 .pcnl{background:#f1f5f9;color:var(--muted)}.pok{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff}
 .pin-err{text-align:center;font-size:11px;color:var(--red);margin-top:8px;min-height:14px}
+
+/* ══ MODULE HOST ══ */
 #modScreen{display:none;flex-direction:column;height:100vh;height:100dvh}
 #modScreen.show{display:flex}
-.mod-bar{background:linear-gradient(120deg,var(--navy),var(--navy2));display:flex;align-items:center;min-height:50px;box-shadow:0 2px 10px rgba(13,27,62,.3);flex-shrink:0;z-index:300}
-.back-btn{background:rgba(255,255,255,.12);border:none;color:#fff;width:44px;min-height:50px;font-size:26px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;line-height:1}
+.mod-bar{background:linear-gradient(120deg,var(--navy),var(--navy2));display:flex;align-items:center;min-height:50px;box-shadow:0 2px 10px rgba(13,27,62,.3);flex-shrink:0;z-index:200}
+.back-btn{background:rgba(255,255,255,.12);border:none;color:#fff;width:44px;min-height:50px;font-size:26px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;line-height:1;transition:background .12s}
 .back-btn:active{background:rgba(255,255,255,.25)}
 .page-tabs{flex:1;display:flex;overflow-x:auto;scrollbar-width:none}
 .page-tabs::-webkit-scrollbar{display:none}
 .ptab{flex:0 0 auto;padding:14px 18px;background:none;border:none;border-bottom:3px solid transparent;color:rgba(255,255,255,.5);font-family:'Syne',sans-serif;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;transition:.15s}
 .ptab.on{color:#fff;border-bottom-color:var(--accent)}
-.sub-bar{background:var(--navy2);display:none;overflow-x:auto;scrollbar-width:none;flex-shrink:0;border-bottom:1px solid rgba(255,255,255,.08)}
+.sub-bar{background:rgba(13,27,62,.95);display:none;overflow-x:auto;scrollbar-width:none;flex-shrink:0;border-bottom:1px solid rgba(255,255,255,.08)}
 .sub-bar::-webkit-scrollbar{display:none}
 .sub-bar.show{display:flex}
-.stab{flex:0 0 auto;padding:9px 16px;background:none;border:none;border-bottom:2px solid transparent;color:rgba(255,255,255,.45);font-size:11px;font-weight:600;cursor:pointer;white-space:nowrap;font-family:'DM Sans',sans-serif}
+.stab{flex:0 0 auto;padding:9px 16px;background:none;border:none;border-bottom:2px solid transparent;color:rgba(255,255,255,.45);font-size:11px;font-weight:600;cursor:pointer;white-space:nowrap;font-family:'DM Sans',sans-serif;transition:.12s}
 .stab.on{color:var(--accent);border-bottom-color:var(--accent)}
+
 .frame-area{flex:1;position:relative;overflow:hidden;background:#f4f7ff}
 .mod-frame{position:absolute;inset:0;width:100%;height:100%;border:none;display:none;background:#fff}
 .mod-frame.on{display:block}
-.frame-loader{position:absolute;inset:0;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:10;gap:14px}
-.frame-loader.gone{display:none}
+
+/* Loading spinner */
+.frame-loader{position:absolute;inset:0;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:10;gap:14px;transition:opacity .2s}
+.frame-loader.gone{opacity:0;pointer-events:none}
 .spin{width:44px;height:44px;border:4px solid #e8eeff;border-top-color:var(--blue);border-radius:50%;animation:spin .7s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 .load-txt{font-family:'Syne',sans-serif;font-size:13px;color:var(--muted);font-weight:600}
-.frame-err{position:absolute;inset:0;background:#fff;display:none;flex-direction:column;align-items:center;justify-content:center;padding:28px;text-align:center;gap:12px;z-index:11;overflow-y:auto}
-.frame-err.show{display:flex}
-.ferr-icon{width:60px;height:60px;background:#fff3f3;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0}
-.ferr-title{font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:var(--navy)}
-.ferr-body{font-size:13px;color:var(--muted);line-height:1.7;max-width:320px}
-.fix-box{background:#f8faff;border:1px solid var(--border);border-radius:12px;padding:14px;text-align:left;font-size:12px;color:var(--text);line-height:2;max-width:340px;width:100%}
-.fix-box b{color:var(--navy)}
-.retry-btn{padding:12px 28px;background:linear-gradient(135deg,var(--blue),var(--blue2));color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer}
+
+/* URL blocked screen — shown when iframe is blocked */
+.frame-blocked{position:absolute;inset:0;background:#fff;display:none;flex-direction:column;align-items:center;justify-content:center;padding:28px;text-align:center;gap:14px;z-index:11}
+.frame-blocked.show{display:flex}
+.fb-icon{width:64px;height:64px;background:#e8eeff;border-radius:18px;display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0}
+.fb-title{font-family:'Syne',sans-serif;font-size:17px;font-weight:800;color:var(--navy)}
+.fb-body{font-size:13px;color:var(--muted);line-height:1.75;max-width:300px}
+.fb-url{font-size:11px;color:var(--blue);word-break:break-all;background:#f0f4ff;padding:8px 12px;border-radius:8px;max-width:340px;width:100%}
+.open-ext-btn{padding:13px 28px;background:linear-gradient(135deg,var(--blue),var(--blue2));color:#fff;border:none;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:8px}
+.open-ext-btn:active{opacity:.85}
+.retry-btn{padding:10px 20px;background:#f1f5f9;color:var(--text);border:none;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer}
+
+/* ══ ADMIN ══ */
 #adminScreen{display:none;flex-direction:column;min-height:100vh}
 #adminScreen.show{display:flex}
 .admin-bar{background:linear-gradient(120deg,var(--navy),var(--navy2));padding:12px 14px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:300}
@@ -86,14 +105,15 @@ body{font-family:'DM Sans',sans-serif;background:linear-gradient(135deg,#e8eeff 
 .act{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1.1px;margin-bottom:12px;display:flex;align-items:center;gap:6px}
 .act::before{content:'';width:3px;height:13px;background:var(--blue);border-radius:2px}
 .af label{display:block;font-size:10px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.7px;margin-bottom:3px;margin-top:10px}
-.af input{width:100%;padding:10px 12px;font-size:14px;font-family:'DM Sans',sans-serif;border:1.5px solid var(--border);border-radius:var(--rs);background:#f8faff;outline:none}
+.af input{width:100%;padding:10px 12px;font-size:14px;font-family:'DM Sans',sans-serif;border:1.5px solid var(--border);border-radius:var(--rs);background:#f8faff;outline:none;transition:border .2s}
 .af input:focus{border-color:var(--blue2);background:#fff}
-.xb{display:inline-flex;align-items:center;justify-content:center;gap:5px;padding:10px 14px;font-size:13px;font-weight:600;border:none;border-radius:var(--rs);cursor:pointer;font-family:'DM Sans',sans-serif}
-.xb:active{opacity:.8}
+.xb{display:inline-flex;align-items:center;justify-content:center;gap:5px;padding:10px 14px;font-size:13px;font-weight:600;border:none;border-radius:var(--rs);cursor:pointer;font-family:'DM Sans',sans-serif;transition:opacity .12s,transform .1s}
+.xb:active{opacity:.82;transform:scale(.97)}
 .xbp{background:linear-gradient(135deg,var(--blue),var(--blue2));color:#fff}
 .xba{background:linear-gradient(135deg,var(--accent),var(--orange));color:var(--navy)}
 .xbr{background:var(--red);color:#fff}
 .xbo{background:transparent;border:1.5px solid var(--border);color:var(--text)}
+.xbg{background:linear-gradient(135deg,var(--green),#059669);color:#fff}
 .xbf{width:100%}.xbs{padding:6px 10px;font-size:11px;border-radius:6px}
 .code-item{border:1.5px solid var(--border);border-radius:12px;padding:12px;margin-bottom:10px;background:#f8faff}
 .ci-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
@@ -101,9 +121,15 @@ body{font-family:'DM Sans',sans-serif;background:linear-gradient(135deg,#e8eeff 
 .ci-acts{display:flex;gap:6px}
 .pg-chip{background:#fff;border:1px solid var(--border);border-radius:8px;padding:7px 10px;margin-bottom:5px}
 .pg-chip-name{font-size:12px;font-weight:700;color:var(--navy)}
-.pg-chip-urls{font-size:10px;color:var(--muted);margin-top:2px;line-height:1.7}
+.pg-chip-urls{font-size:10px;color:var(--muted);margin-top:3px;line-height:1.8}
 .empty-note{text-align:center;padding:16px;color:var(--muted);font-size:12px}
-.anote{font-size:11px;color:var(--muted);line-height:1.7;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:10px 12px;margin-top:10px}
+.anote{font-size:11px;color:var(--muted);line-height:1.75;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:10px 12px;margin-top:10px}
+.sync-status{font-size:11px;font-weight:600;text-align:center;padding:8px;margin-top:8px;border-radius:8px}
+.sync-status.ok{color:var(--green);background:rgba(16,185,129,.08)}
+.sync-status.er{color:var(--red);background:rgba(239,68,68,.08)}
+.sync-status.ld{color:var(--muted);background:#f8faff}
+
+/* ══ CODE EDITOR MODAL ══ */
 .emod{position:fixed;inset:0;background:rgba(13,27,62,.6);z-index:9000;display:none;align-items:flex-end;justify-content:center;backdrop-filter:blur(3px)}
 .emod.open{display:flex}
 .esheet{background:#fff;border-radius:20px 20px 0 0;width:100%;max-width:640px;max-height:93vh;overflow-y:auto;padding:20px 16px 32px}
@@ -115,24 +141,28 @@ body{font-family:'DM Sans',sans-serif;background:linear-gradient(135deg,#e8eeff 
 .pg-name-inp{width:100%;padding:9px 10px;font-size:13px;font-family:'DM Sans',sans-serif;border:1.5px solid var(--border);border-radius:7px;background:#fff;outline:none;margin-bottom:10px}
 .pg-name-inp:focus{border-color:var(--blue2)}
 .urls-lbl{font-size:10px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.7px;margin-bottom:6px}
-.url-entry{margin-bottom:8px;border:1px solid var(--border);border-radius:8px;padding:8px;background:#fff}
-.ue-lbl{width:100%;padding:7px 9px;font-size:11px;font-family:'DM Sans',sans-serif;border:1px solid var(--border);border-radius:6px;background:#f8faff;outline:none;margin-bottom:5px;color:var(--muted)}
-.ue-lbl:focus{border-color:var(--blue2)}
-.ue-url-row{display:flex;align-items:center;gap:6px}
+.url-entry{margin-bottom:7px;border:1px solid var(--border);border-radius:8px;padding:8px;background:#fff}
+.ue-lbl{width:100%;padding:7px 9px;font-size:11px;font-family:'DM Sans',sans-serif;border:1px solid var(--border);border-radius:6px;background:#f8faff;outline:none;margin-bottom:5px;color:var(--text)}
+.ue-lbl:focus{border-color:var(--blue2);background:#fff}
+.ue-row{display:flex;align-items:center;gap:6px}
 .ue-url{flex:1;padding:8px 10px;font-size:12px;font-family:'DM Sans',sans-serif;border:1.5px solid var(--border);border-radius:6px;background:#fff;outline:none}
 .ue-url:focus{border-color:var(--blue2)}
 .ue-del{background:none;border:none;color:var(--red);font-size:18px;cursor:pointer;padding:2px 5px;line-height:1;flex-shrink:0}
 .add-url-btn{display:flex;align-items:center;gap:5px;font-size:11px;font-weight:600;color:var(--blue);background:rgba(26,86,219,.06);border:1px dashed var(--blue2);border-radius:7px;padding:7px 12px;cursor:pointer;width:100%;margin-top:6px}
+
+/* ══ TOAST ══ */
 .toast-wrap{position:fixed;top:14px;left:10px;right:10px;z-index:99999;display:flex;flex-direction:column;align-items:center;gap:7px;pointer-events:none}
-.toast{background:#fff;border-radius:var(--rs);box-shadow:0 8px 26px rgba(0,0,0,.18);padding:11px 16px;display:flex;align-items:center;gap:9px;font-size:13px;font-weight:600;border-left:5px solid var(--blue);max-width:92%;animation:tsl .2s ease}
+.toast{background:#fff;border-radius:var(--rs);box-shadow:0 8px 26px rgba(0,0,0,.18);padding:11px 16px;display:flex;align-items:center;gap:9px;font-size:13px;font-weight:600;border-left:5px solid var(--blue);max-width:92%}
 .toast.ok{border-color:var(--green)}.toast.er{border-color:var(--red)}.toast.wa{border-color:var(--accent)}
-@keyframes tsl{from{transform:translateY(-12px);opacity:0}to{transform:translateY(0);opacity:1}}
+@keyframes tsl{from{transform:translateY(-10px);opacity:0}to{transform:translateY(0);opacity:1}}
+.toast{animation:tsl .18s ease}
 </style>
 </head>
 <body>
+
 <div class="toast-wrap" id="toastWrap"></div>
 
-<!-- SCREEN 1: CODE ENTRY -->
+<!-- ════════════ SCREEN 1: CODE ENTRY ════════════ -->
 <div id="shellScreen">
   <div class="logo-wrap">
     <div class="logo-box" id="logoBox" onclick="logoClick()">
@@ -141,20 +171,25 @@ body{font-family:'DM Sans',sans-serif;background:linear-gradient(135deg,#e8eeff 
     </div>
     <div class="brand-name">AKAI DISTRIBUTORS</div>
     <div class="brand-sub">Office Suite</div>
-    <div class="click-hint">Tap logo 3 times for Admin</div>
+    <!-- NO hint text shown to users -->
   </div>
+
   <div class="code-card">
     <div class="code-label">Enter Access Code</div>
-    <input type="tel" id="codeInput" placeholder="&bull; &bull; &bull; &bull;" maxlength="12" autocomplete="off"
+    <input type="tel" id="codeInput" placeholder="&#xb7; &#xb7; &#xb7; &#xb7;" maxlength="12" autocomplete="off"
            onkeydown="if(event.key==='Enter')openByCode()">
     <button class="open-btn" onclick="openByCode()">Open</button>
     <div class="code-msg" id="codeMsg"></div>
   </div>
-  <div class="net-chip"><span class="ndot" id="ndot"></span><span id="ntxt">Checking&hellip;</span></div>
+
+  <div class="net-chip">
+    <span class="ndot uk" id="ndot"></span>
+    <span id="ntxt">Checking&hellip;</span>
+  </div>
   <div class="shell-footer">AKAI DISTRIBUTORS &middot; Internal Use</div>
 </div>
 
-<!-- PIN OVERLAY -->
+<!-- ════════════ PIN OVERLAY ════════════ -->
 <div class="overlay" id="pinOv">
   <div class="pin-card">
     <div class="pin-title">Admin Access</div>
@@ -169,7 +204,7 @@ body{font-family:'DM Sans',sans-serif;background:linear-gradient(135deg,#e8eeff 
   </div>
 </div>
 
-<!-- SCREEN 2: MODULE HOST -->
+<!-- ════════════ SCREEN 2: MODULE HOST ════════════ -->
 <div id="modScreen">
   <div class="mod-bar">
     <button class="back-btn" onclick="exitMod()">&#8249;</button>
@@ -181,78 +216,122 @@ body{font-family:'DM Sans',sans-serif;background:linear-gradient(135deg,#e8eeff 
       <div class="spin"></div>
       <div class="load-txt">Loading&hellip;</div>
     </div>
-    <div class="frame-err" id="frameErr">
-      <div class="ferr-icon">&#128274;</div>
-      <div class="ferr-title">Access Denied / Not Loading</div>
-      <div class="ferr-body">Your Apps Script is <strong>not deployed as a public web app</strong>. This is the most common cause.</div>
-      <div class="fix-box">
-        <b>Fix in 60 seconds:</b><br>
-        1. Open your Apps Script project<br>
-        2. Top-right &rarr; <b>Deploy &rarr; Manage deployments</b><br>
-        3. Click pencil &#9999; to edit<br>
-        4. &ldquo;Who has access&rdquo; &rarr; set to <b>Anyone</b><br>
-        5. Click <b>Deploy</b> &rarr; copy the new <b>/exec URL</b><br>
-        6. Paste it in Admin &rarr; edit this code&rsquo;s URL
+    <!-- Blocked screen shown when iframe embedding is blocked -->
+    <div class="frame-blocked" id="frameBlocked">
+      <div class="fb-icon">&#128279;</div>
+      <div class="fb-title">Opening in Browser</div>
+      <div class="fb-body">
+        This website doesn&rsquo;t allow embedding.<br>
+        It will open in a new browser tab automatically.
       </div>
-      <button class="retry-btn" onclick="retryFrame()">&#8635; Try Again</button>
+      <div class="fb-url" id="fbUrl"></div>
+      <button class="open-ext-btn" onclick="openCurrentExt()">
+        &#8599; Open Website
+      </button>
+      <button class="retry-btn" onclick="retryCurrentFrame()">Try Embed Again</button>
     </div>
+    <!-- iframes injected here -->
   </div>
 </div>
 
-<!-- SCREEN 3: ADMIN -->
+<!-- ════════════ SCREEN 3: ADMIN ════════════ -->
 <div id="adminScreen">
   <div class="admin-bar">
     <button class="back-btn" onclick="exitAdmin()">&#8249;</button>
     <h2>Admin Settings</h2>
   </div>
   <div class="admin-body">
+
     <div class="ac">
       <div class="act">Access Codes</div>
       <div id="codeList"></div>
       <button class="xb xbp xbf" onclick="openEditor()">&#43; Add New Code</button>
     </div>
+
+    <!-- Sync to Google Sheet so all phones update instantly -->
+    <div class="ac">
+      <div class="act">Sync Config (All Phones)</div>
+      <div class="af">
+        <label>Google Sheet Sync URL (Apps Script)</label>
+        <input type="text" id="syncUrlInput" placeholder="https://script.google.com/&#8230;/exec">
+      </div>
+      <div style="display:flex;gap:8px;margin-top:10px">
+        <button class="xb xbg" style="flex:1" onclick="pushToSheet()">&#8593; Save to Sheet</button>
+        <button class="xb xbo" style="flex:1" onclick="pullFromSheet()">&#8595; Load from Sheet</button>
+      </div>
+      <div class="sync-status" id="syncStatus"></div>
+      <div class="anote">Set up the sync script once (instructions below) and all 100 phones get instant updates when you Save to Sheet.</div>
+    </div>
+
     <div class="ac">
       <div class="act">Security</div>
-      <div class="af"><label>Admin PIN</label><input type="text" id="adminPinF" placeholder="0000"></div>
+      <div class="af">
+        <label>Admin PIN</label>
+        <input type="text" id="adminPinF" placeholder="0000">
+      </div>
       <button class="xb xba xbf" style="margin-top:10px" onclick="savePin()">Save PIN</button>
     </div>
+
     <div class="ac">
-      <div class="act">Backup / Share</div>
+      <div class="act">Backup / Manual Share</div>
       <div style="display:flex;gap:8px">
-        <button class="xb xbo" style="flex:1" onclick="exportCfg()">Export</button>
-        <button class="xb xbo" style="flex:1" onclick="document.getElementById('impF').click()">Import</button>
+        <button class="xb xbo" style="flex:1" onclick="exportCfg()">Export File</button>
+        <button class="xb xbo" style="flex:1" onclick="document.getElementById('impF').click()">Import File</button>
       </div>
       <input type="file" id="impF" accept="application/json" style="display:none" onchange="importCfg(event)">
-      <div class="anote">Export saves all codes, URLs &amp; PIN as one file. Send to any phone and Import to copy the same setup instantly.</div>
+      <div class="anote">Use this if you don&rsquo;t have the sync URL set up yet. Export saves config as a file, Import loads it.</div>
     </div>
+
     <div class="ac">
-      <div class="act">Fix &ldquo;You Need Access&rdquo; Error</div>
-      <div class="fix-box" style="max-width:100%">
-        <b>Your Apps Script must be deployed as a public web app:</b><br>
-        1. Open Apps Script project<br>
-        2. Click <b>Deploy &rarr; Manage deployments</b><br>
-        3. Edit (pencil icon)<br>
-        4. &ldquo;Execute as&rdquo; &rarr; <b>Me</b><br>
-        5. &ldquo;Who has access&rdquo; &rarr; <b>Anyone</b><br>
-        6. Click <b>Deploy</b> &rarr; copy the <b>/exec URL</b><br>
-        7. Paste that URL in Admin for that code
+      <div class="act">Sync Script Setup (one-time)</div>
+      <div style="font-size:12px;line-height:1.9;color:var(--text)">
+        <b>1.</b> Create a new Google Apps Script at script.google.com<br>
+        <b>2.</b> Paste this code:<br>
+        <div style="background:#f0f4ff;border-radius:8px;padding:10px;margin:6px 0;font-size:11px;font-family:monospace;line-height:1.7;word-break:break-all">
+const SHEET_NAME="AKAI_CONFIG";<br>
+function doGet(e){<br>
+&nbsp;var ss=SpreadsheetApp.getActiveSpreadsheet();<br>
+&nbsp;var sh=ss.getSheetByName(SHEET_NAME)||ss.insertSheet(SHEET_NAME);<br>
+&nbsp;var v=sh.getRange("A1").getValue();<br>
+&nbsp;return ContentService.createTextOutput(v||"{}").setMimeType(ContentService.MimeType.JSON);<br>
+}<br>
+function doPost(e){<br>
+&nbsp;var ss=SpreadsheetApp.getActiveSpreadsheet();<br>
+&nbsp;var sh=ss.getSheetByName(SHEET_NAME)||ss.insertSheet(SHEET_NAME);<br>
+&nbsp;var data=e.postData?e.postData.contents:"{}";<br>
+&nbsp;sh.getRange("A1").setValue(data);<br>
+&nbsp;return ContentService.createTextOutput("ok").setMimeType(ContentService.MimeType.TEXT);<br>
+}
+        </div>
+        <b>3.</b> Deploy as Web App &rarr; Execute as: Me &rarr; Who has access: Anyone<br>
+        <b>4.</b> Copy the /exec URL and paste it in the Sync URL field above<br>
+        <b>5.</b> Click &ldquo;Save to Sheet&rdquo; &mdash; now every phone that has this sync URL gets instant updates when they open the app
       </div>
     </div>
+
   </div>
 </div>
 
-<!-- CODE EDITOR MODAL -->
+<!-- ════════════ CODE EDITOR MODAL ════════════ -->
 <div class="emod" id="edMod">
   <div class="esheet">
     <div class="etitle">
       <span id="edTitle">Add Code</span>
       <button class="ecls" onclick="closeEditor()">&times;</button>
     </div>
-    <div class="af"><label>Access Code (what user types)</label><input type="text" id="editCode" placeholder="e.g. 1234" style="margin-top:4px"></div>
-    <div style="margin-top:14px;font-family:'Syne',sans-serif;font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Pages (each = one tab)</div>
+    <div class="af" style="margin-bottom:4px">
+      <label>Access Code (what user types)</label>
+      <input type="text" id="editCode" placeholder="e.g. 1234" style="margin-top:4px">
+    </div>
+    <div style="margin-top:14px;font-family:'Syne',sans-serif;font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">
+      Pages (each = one tab)
+    </div>
     <div id="edPages"></div>
     <button class="xb xbo xbf" style="margin-top:4px" onclick="addPageRow()">&#43; Add Page Tab</button>
-    <div class="anote" style="margin-top:12px">Each <b>Page</b> = one tab at the top. Add 1&ndash;3 pages per code.<br>Under each page you can add <b>multiple Google Sheet / website URLs</b> &mdash; these appear as sub-tabs within that page tab.</div>
+    <div class="anote" style="margin-top:12px">
+      Each <b>Page Tab</b> = one tab at the top of the screen when this code is opened.<br>
+      Under each page, add <b>as many Google Sheet / website URLs as you want</b> — they become sub-tabs within that page.
+    </div>
     <div style="display:flex;gap:8px;margin-top:16px">
       <button class="xb xbo" style="flex:1" onclick="closeEditor()">Cancel</button>
       <button class="xb xbp" style="flex:2" onclick="saveCode()">Save Code</button>
@@ -261,74 +340,98 @@ body{font-family:'DM Sans',sans-serif;background:linear-gradient(135deg,#e8eeff 
 </div>
 
 <script>
-/* ── CONFIG ─────────────────────────────────────────────────────────
-   Structure:
-   { adminPin, codes: [ { code, pages: [ { name, urls: [ { label, url } ] } ] } ] }
-*/
-const DEFAULT = {
-  adminPin:"0000",
-  codes:[
-    { code:"1234", pages:[ { name:"Challan Scanner", urls:[ {label:"Challan",url:""} ] } ] },
-    { code:"2345", pages:[ { name:"Dealer View",     urls:[ {label:"Dealer",url:""} ] } ] },
-    { code:"3456", pages:[ { name:"Sales Executive", urls:[ {label:"Sales",url:""} ] } ] },
-    { code:"4567", pages:[ { name:"Match Sheet",     urls:[ {label:"Match",url:""}, {label:"Stock",url:""} ] } ] }
+/* ================================================================
+   AKAI DISTRIBUTORS — App Shell (Final)
+   ================================================================ */
+
+// ── CONFIG ────────────────────────────────────────────────────────
+// Structure: { adminPin, syncUrl, codes: [{ code, pages: [{ name, urls: [{label,url}] }] }] }
+const DEFAULT_CFG = {
+  adminPin: "0000",
+  syncUrl: "",
+  codes: [
+    { code:"1234", pages:[{ name:"Challan Scanner", urls:[{label:"Challan",url:""}] }] },
+    { code:"2345", pages:[{ name:"Dealer View",     urls:[{label:"Dealer",url:""}] }] },
+    { code:"3456", pages:[{ name:"Sales Executive", urls:[{label:"Sales",url:""}] }] },
+    { code:"4567", pages:[{ name:"Match Sheet",     urls:[{label:"Match",url:""},{label:"Stock",url:""}] }] }
   ]
 };
 
-function sget(k,fb){ try{ const v=localStorage.getItem(k); return v!==null?v:fb; }catch(e){ return fb; } }
-function sset(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
+function sg(k,fb){ try{ const v=localStorage.getItem(k); return v!==null?v:fb; }catch(e){ return fb; } }
+function ss(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
 
 let CFG = (function(){
-  const raw=sget("akai_cfg",null);
-  if(!raw){ sset("akai_cfg",JSON.stringify(DEFAULT)); return JSON.parse(JSON.stringify(DEFAULT)); }
+  const raw=sg("akai_cfg2",null);
+  if(!raw){ ss("akai_cfg2",JSON.stringify(DEFAULT_CFG)); return JSON.parse(JSON.stringify(DEFAULT_CFG)); }
   try{
     const p=JSON.parse(raw);
     if(!p.codes) p.codes=[];
     if(!p.adminPin) p.adminPin="0000";
-    // migrate old format (single url string per page -> urls array)
+    if(!p.syncUrl) p.syncUrl="";
+    // migrate old single-url format
     p.codes.forEach(c=>(c.pages||[]).forEach(pg=>{
       if(!pg.urls){ pg.urls=[{label:pg.name||"Page",url:pg.url||""}]; delete pg.url; }
     }));
     return p;
-  }catch(e){ return JSON.parse(JSON.stringify(DEFAULT)); }
+  }catch(e){ return JSON.parse(JSON.stringify(DEFAULT_CFG)); }
 })();
 
-function saveCFG(){ sset("akai_cfg",JSON.stringify(CFG)); }
+function saveCFG(){ ss("akai_cfg2",JSON.stringify(CFG)); }
 
-/* ── TOAST ── */
+// ── AUTO-PULL from sync sheet on startup ──────────────────────────
+(function autoPull(){
+  if(!CFG.syncUrl) return;
+  fetch(CFG.syncUrl+"?t="+Date.now())
+    .then(r=>r.json())
+    .then(remote=>{
+      if(!remote||!remote.codes) return;
+      // Only update codes from remote; keep local syncUrl and adminPin
+      const localPin=CFG.adminPin, localSync=CFG.syncUrl;
+      CFG=remote;
+      if(!CFG.adminPin) CFG.adminPin=localPin;
+      CFG.syncUrl=localSync;
+      saveCFG();
+    }).catch(()=>{}); // silent — offline is fine
+})();
+
+// ── TOAST ─────────────────────────────────────────────────────────
 function toast(msg,type,dur){
   type=type||"ok"; dur=dur||2600;
   const ic={ok:"✅",er:"❌",wa:"⚠️"};
   const w=document.getElementById("toastWrap");
   const t=document.createElement("div"); t.className="toast "+type;
-  const s=document.createElement("span"); s.textContent=ic[type]||"ℹ️";
+  const i=document.createElement("span"); i.textContent=ic[type]||"ℹ️";
   const m=document.createElement("span"); m.textContent=msg;
-  t.appendChild(s); t.appendChild(m); w.appendChild(t);
+  t.appendChild(i); t.appendChild(m); w.appendChild(t);
   setTimeout(()=>{ t.style.cssText="opacity:0;transition:opacity .25s"; setTimeout(()=>t.remove(),260); },dur);
 }
 
-/* ── NETWORK ── */
+// ── NETWORK ───────────────────────────────────────────────────────
 function upNet(){
   const on=navigator.onLine;
-  document.getElementById("ndot").className="ndot "+(on?"on":"off");
+  const d=document.getElementById("ndot");
+  d.className="ndot "+(on?"on":"off");
   document.getElementById("ntxt").textContent=on?"Online":"Offline";
 }
 window.addEventListener("online",upNet); window.addEventListener("offline",upNet);
 
-/* ── LOGO 3-CLICK ADMIN ── */
-let _lc=0, _lt=null;
+// ── LOGO 3-CLICK → ADMIN ─────────────────────────────────────────
+let _lc=0,_lt=null;
 function logoClick(){
   _lc++;
   const lb=document.getElementById("logoBox");
   lb.classList.remove("c1","c2","c3");
-  void lb.offsetWidth; // reflow so CSS animates
+  void lb.offsetWidth;
   lb.classList.add("c"+Math.min(_lc,3));
   clearTimeout(_lt);
-  if(_lc>=3){ _lc=0; lb.classList.remove("c1","c2","c3"); openPin(); return; }
+  if(_lc>=3){
+    _lc=0; lb.classList.remove("c1","c2","c3");
+    openPin(); return;
+  }
   _lt=setTimeout(()=>{ _lc=0; lb.classList.remove("c1","c2","c3"); },1400);
 }
 
-/* ── PIN ── */
+// ── PIN ───────────────────────────────────────────────────────────
 function openPin(){
   document.getElementById("pinOv").classList.add("open");
   document.getElementById("pinInput").value="";
@@ -337,37 +440,44 @@ function openPin(){
 }
 function closePin(){ document.getElementById("pinOv").classList.remove("open"); }
 function checkPin(){
-  if(document.getElementById("pinInput").value.trim()===String(CFG.adminPin)){ closePin(); openAdmin(); }
-  else{ document.getElementById("pinErr").textContent="Incorrect PIN"; document.getElementById("pinInput").value=""; }
+  if(document.getElementById("pinInput").value.trim()===String(CFG.adminPin)){
+    closePin(); openAdmin();
+  }else{
+    document.getElementById("pinErr").textContent="Incorrect PIN";
+    document.getElementById("pinInput").value="";
+    setTimeout(()=>document.getElementById("pinInput").focus(),50);
+  }
 }
 
-/* ── OPEN BY CODE ── */
+// ── OPEN BY CODE ──────────────────────────────────────────────────
 function openByCode(){
   const code=document.getElementById("codeInput").value.trim();
   const msg=document.getElementById("codeMsg");
-  msg.className="code-msg";
+  msg.className="code-msg"; msg.textContent="";
   if(!code){ msg.className="code-msg err"; msg.textContent="Enter a code"; return; }
   const entry=CFG.codes.find(c=>String(c.code)===code);
   if(!entry){ msg.className="code-msg err"; msg.textContent="Code not found"; return; }
-  if(!entry.pages||!entry.pages.length){ msg.className="code-msg err"; msg.textContent="No pages linked — edit in Admin"; return; }
-  // Check at least one URL exists
-  const hasUrl=entry.pages.some(p=>(p.urls||[]).some(u=>u.url));
-  if(!hasUrl){ msg.className="code-msg err"; msg.textContent="URLs not set — edit this code in Admin"; return; }
+  if(!entry.pages||!entry.pages.length){ msg.className="code-msg err"; msg.textContent="No pages set — see Admin"; return; }
+  const hasUrl=entry.pages.some(p=>(p.urls||[]).some(u=>u.url&&u.url.trim()));
+  if(!hasUrl){ msg.className="code-msg err"; msg.textContent="URLs not set yet — edit in Admin"; return; }
   msg.className="code-msg ok"; msg.textContent="Opening…";
   setTimeout(()=>{ msg.textContent=""; launchMod(entry); },80);
 }
 
-/* ── MODULE LAUNCHER ── */
+// ── MODULE LAUNCHER ───────────────────────────────────────────────
 let _entry=null, _ap=0, _as=0, _fmap={};
+// _blocked[key] = url that was blocked (so we know what to open externally)
+let _blocked={};
 
 function launchMod(entry){
-  _entry=entry; _ap=0; _as=0; _fmap={};
-  // Clear old frames
-  const fa=document.getElementById("frameArea");
-  fa.querySelectorAll(".mod-frame").forEach(f=>f.remove());
+  _entry=entry; _ap=0; _as=0; _fmap={}; _blocked={};
+
+  // clear old frames
+  document.querySelectorAll(".mod-frame").forEach(f=>f.remove());
   document.getElementById("frameLoader").classList.remove("gone");
-  document.getElementById("frameErr").classList.remove("show");
-  // Build page tabs
+  document.getElementById("frameBlocked").classList.remove("show");
+
+  // build page tabs
   const pt=document.getElementById("pageTabs"); pt.innerHTML="";
   const multi=entry.pages.length>1;
   entry.pages.forEach((pg,pi)=>{
@@ -378,6 +488,7 @@ function launchMod(entry){
     btn.onclick=()=>switchPage(pi);
     pt.appendChild(btn);
   });
+
   document.getElementById("shellScreen").style.display="none";
   document.getElementById("modScreen").classList.add("show");
   buildSubBar(0);
@@ -387,12 +498,13 @@ function launchMod(entry){
 function switchPage(pi){
   _ap=pi; _as=0;
   document.querySelectorAll(".ptab").forEach((t,i)=>t.classList.toggle("on",i===pi));
+  document.getElementById("frameBlocked").classList.remove("show");
   buildSubBar(pi);
   loadFrame(pi,0);
 }
 
 function buildSubBar(pi){
-  const pg=_entry.pages[pi]; const urls=pg.urls||[];
+  const pg=_entry.pages[pi]; const urls=(pg.urls||[]).filter(u=>u.url);
   const bar=document.getElementById("subBar"); bar.innerHTML="";
   if(urls.length>1){
     bar.classList.add("show");
@@ -410,100 +522,274 @@ function buildSubBar(pi){
 function switchSub(pi,si){
   _as=si;
   document.querySelectorAll(".stab").forEach((t,i)=>t.classList.toggle("on",i===si));
+  document.getElementById("frameBlocked").classList.remove("show");
   loadFrame(pi,si);
 }
 
-function loadFrame(pi,si){
+// Map to actual URL entry (skip blank URLs)
+function getUrlEntry(pi,si){
   const pg=_entry.pages[pi];
-  const urlObj=(pg.urls||[])[si]; const url=urlObj&&urlObj.url;
+  const urls=(pg.urls||[]).filter(u=>u.url&&u.url.trim());
+  return urls[si]||null;
+}
+
+function loadFrame(pi,si){
+  const urlObj=getUrlEntry(pi,si);
+  const url=urlObj?urlObj.url.trim():null;
+
   document.getElementById("frameLoader").classList.remove("gone");
-  document.getElementById("frameErr").classList.remove("show");
+  document.getElementById("frameBlocked").classList.remove("show");
   document.querySelectorAll(".mod-frame").forEach(f=>f.classList.remove("on"));
+
   const key=pi+"_"+si;
-  if(_fmap[key]){ _fmap[key].classList.add("on"); document.getElementById("frameLoader").classList.add("gone"); return; }
-  if(!url){ document.getElementById("frameLoader").classList.add("gone"); showFErr(); return; }
+
+  // If we already know this URL is blocked, show blocked screen immediately
+  if(_blocked[key]){
+    document.getElementById("frameLoader").classList.add("gone");
+    showBlocked(key,_blocked[key]); return;
+  }
+
+  if(_fmap[key]){
+    _fmap[key].classList.add("on");
+    document.getElementById("frameLoader").classList.add("gone");
+    return;
+  }
+
+  if(!url){
+    document.getElementById("frameLoader").classList.add("gone");
+    return;
+  }
+
   const fr=document.createElement("iframe");
   fr.className="mod-frame on";
   fr.setAttribute("allow","camera;microphone;fullscreen;geolocation;clipboard-read;clipboard-write");
   fr.setAttribute("allowfullscreen","");
+  fr.setAttribute("sandbox","allow-same-origin allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox allow-top-navigation allow-top-navigation-by-user-activation allow-downloads");
   _fmap[key]=fr;
-  let done=false;
-  const to=setTimeout(()=>{ if(!done){ document.getElementById("frameLoader").classList.add("gone"); } },15000);
+
+  let loadFired=false;
+  // Timeout: if iframe hasn't loaded in 8s, assume it's blocked
+  const blockTimeout=setTimeout(()=>{
+    if(!loadFired){
+      document.getElementById("frameLoader").classList.add("gone");
+      _blocked[key]=url;
+      showBlocked(key,url);
+    }
+  },8000);
+
   fr.onload=()=>{
-    done=true; clearTimeout(to);
+    loadFired=true;
+    clearTimeout(blockTimeout);
     document.getElementById("frameLoader").classList.add("gone");
-    // Detect Google sign-in page (best-effort, cross-origin blocked)
+
+    // Try to detect error pages (works for same-origin; cross-origin throws)
     try{
-      const title=(fr.contentDocument&&fr.contentDocument.title)||"";
-      const body=(fr.contentDocument&&fr.contentDocument.body&&fr.contentDocument.body.innerText)||"";
-      if(title.toLowerCase().includes("sign in")||body.includes("You need access")||body.includes("request access")){
-        showFErr();
+      const bd=fr.contentDocument&&fr.contentDocument.body;
+      const txt=(bd&&bd.innerText)||"";
+      const ttl=fr.contentDocument.title||"";
+      // Google "You need access" or sign-in page
+      if(txt.includes("You need access")||txt.includes("request access")||
+         ttl.toLowerCase().includes("sign in")||ttl.toLowerCase().includes("google drive")){
+        _blocked[key]=url;
+        showBlocked(key,url,"access");
+        fr.classList.remove("on");
       }
-    }catch(e){ /* expected cross-origin */ }
+    }catch(e){
+      // Cross-origin — frame loaded fine, we can't read it. That's OK.
+    }
   };
-  fr.onerror=()=>{ clearTimeout(to); document.getElementById("frameLoader").classList.add("gone"); showFErr(); };
+
+  fr.onerror=()=>{
+    clearTimeout(blockTimeout);
+    loadFired=true;
+    document.getElementById("frameLoader").classList.add("gone");
+    _blocked[key]=url;
+    showBlocked(key,url);
+  };
+
   fr.src=url;
   document.getElementById("frameArea").appendChild(fr);
 }
 
-function showFErr(){ document.getElementById("frameErr").classList.add("show"); }
-function retryFrame(){
-  document.getElementById("frameErr").classList.remove("show");
+function showBlocked(key, url, reason){
+  const bl=document.getElementById("frameBlocked");
+  const urlEl=document.getElementById("fbUrl");
+
+  if(reason==="access"){
+    bl.querySelector(".fb-title").textContent="Access Denied";
+    bl.querySelector(".fb-body").innerHTML=
+      "This Google site requires permission.<br>Make sure your Apps Script is deployed as a public web app (Execute as: <b>Me</b>, Who has access: <b>Anyone</b>).";
+  }else{
+    bl.querySelector(".fb-title").textContent="Opening in Browser";
+    bl.querySelector(".fb-body").innerHTML=
+      "This website doesn\u2019t allow embedding inside the app.<br>Tap the button below to open it directly.";
+  }
+
+  urlEl.textContent=url;
+  // Auto-open external tab
+  try{ window.open(url,"_blank"); }catch(e){}
+  bl.classList.add("show");
+}
+
+function openCurrentExt(){
   const key=_ap+"_"+_as;
+  const url=_blocked[key];
+  if(url){ try{ window.open(url,"_blank"); }catch(e){ location.href=url; } }
+}
+function retryCurrentFrame(){
+  const key=_ap+"_"+_as;
+  delete _blocked[key];
   if(_fmap[key]){ _fmap[key].remove(); delete _fmap[key]; }
+  document.getElementById("frameBlocked").classList.remove("show");
   loadFrame(_ap,_as);
 }
 
 function exitMod(){
   document.getElementById("modScreen").classList.remove("show");
   document.getElementById("frameArea").querySelectorAll(".mod-frame").forEach(f=>f.remove());
-  document.getElementById("subBar").innerHTML=""; document.getElementById("subBar").classList.remove("show");
-  _fmap={};
+  document.getElementById("subBar").innerHTML="";
+  document.getElementById("subBar").classList.remove("show");
+  document.getElementById("frameBlocked").classList.remove("show");
+  document.getElementById("frameLoader").classList.add("gone");
+  _fmap={}; _blocked={};
   document.getElementById("shellScreen").style.display="flex";
   document.getElementById("codeInput").value="";
 }
 
-/* ── ADMIN ── */
+// ── ADMIN ─────────────────────────────────────────────────────────
 function openAdmin(){
   document.getElementById("shellScreen").style.display="none";
   document.getElementById("adminScreen").classList.add("show");
   document.getElementById("adminPinF").value=CFG.adminPin;
+  document.getElementById("syncUrlInput").value=CFG.syncUrl||"";
+  document.getElementById("syncStatus").textContent="";
   renderCodeList();
 }
 function exitAdmin(){
   document.getElementById("adminScreen").classList.remove("show");
   document.getElementById("shellScreen").style.display="flex";
 }
+
 function renderCodeList(){
   const list=document.getElementById("codeList");
-  if(!CFG.codes.length){ list.innerHTML='<div class="empty-note">No codes yet.</div>'; return; }
+  if(!CFG.codes.length){ list.innerHTML='<div class="empty-note">No codes yet. Add one above.</div>'; return; }
   list.innerHTML="";
   CFG.codes.forEach((c,ci)=>{
     const pHtml=(c.pages||[]).map(pg=>{
-      const uLines=(pg.urls||[]).map(u=>'<span style="display:block">&bull; '+esc(u.label||"Sheet")+": "+esc(u.url||"(no url)")+"</span>").join("");
-      return '<div class="pg-chip"><div class="pg-chip-name">'+esc(pg.name||"Page")+'</div><div class="pg-chip-urls">'+uLines+'</div></div>';
+      const uLines=(pg.urls||[]).map(u=>'<span style="display:block">&bull; '+esc(u.label||'Sheet')+': '+esc(u.url||'(no url)')+'</span>').join("");
+      return '<div class="pg-chip"><div class="pg-chip-name">'+esc(pg.name||'Page')+'</div><div class="pg-chip-urls">'+uLines+'</div></div>';
     }).join("");
     const d=document.createElement("div"); d.className="code-item";
     d.innerHTML='<div class="ci-head"><span class="ci-code">'+esc(c.code)+'</span>'+
-      '<div class="ci-acts"><button class="xb xbo xbs" onclick="openEditor('+ci+')">Edit</button>'+
-      '<button class="xb xbr xbs" onclick="delCode('+ci+')">Delete</button></div></div>'+pHtml;
+      '<div class="ci-acts">'+
+      '<button class="xb xbo xbs" onclick="openEditor('+ci+')">Edit</button>'+
+      '<button class="xb xbr xbs" onclick="delCode('+ci+')">Delete</button>'+
+      '</div></div>'+pHtml;
     list.appendChild(d);
   });
 }
-function esc(s){ return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
-function delCode(ci){ if(!confirm("Delete code "+CFG.codes[ci].code+"?")) return; CFG.codes.splice(ci,1); saveCFG(); renderCodeList(); toast("Code deleted"); }
-function savePin(){ const v=document.getElementById("adminPinF").value.trim(); if(!v){ toast("PIN can't be empty","er"); return; } CFG.adminPin=v; saveCFG(); toast("Admin PIN saved"); }
-function exportCfg(){ const b=new Blob([JSON.stringify(CFG,null,2)],{type:"application/json"}); const a=document.createElement("a"); a.href=URL.createObjectURL(b); a.download="akai_config.json"; a.click(); toast("Config exported"); }
-function importCfg(ev){ const f=ev.target.files[0]; if(!f) return; const r=new FileReader(); r.onload=()=>{ try{ const c=JSON.parse(r.result); if(!c.codes) throw 0; CFG=c; if(!CFG.adminPin) CFG.adminPin="0000"; saveCFG(); document.getElementById("adminPinF").value=CFG.adminPin; renderCodeList(); toast("Config imported"); }catch(e){ toast("Invalid file","er"); } }; r.readAsText(f); ev.target.value=""; }
 
-/* ── CODE EDITOR ── */
+function esc(s){ return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+function delCode(ci){
+  if(!confirm("Delete code "+CFG.codes[ci].code+"?")) return;
+  CFG.codes.splice(ci,1); saveCFG(); renderCodeList();
+  toast("Code deleted");
+}
+function savePin(){
+  const v=document.getElementById("adminPinF").value.trim();
+  if(!v){ toast("PIN can't be empty","er"); return; }
+  CFG.adminPin=v; saveCFG(); toast("Admin PIN saved");
+}
+
+// ── SYNC ──────────────────────────────────────────────────────────
+function getSyncUrl(){
+  const v=document.getElementById("syncUrlInput").value.trim();
+  CFG.syncUrl=v; saveCFG(); return v;
+}
+function setSyncStatus(msg,type){
+  const el=document.getElementById("syncStatus");
+  el.textContent=msg; el.className="sync-status "+(type||"ld");
+}
+
+function pushToSheet(){
+  const url=getSyncUrl();
+  if(!url){ toast("Enter the Sync URL first","wa"); return; }
+  setSyncStatus("Saving to sheet…","ld");
+  const payload=JSON.stringify(CFG);
+  fetch(url,{ method:"POST", body:payload,
+    headers:{"Content-Type":"text/plain"}
+  }).then(r=>r.text()).then(()=>{
+    setSyncStatus("✅ Saved — all phones will get this on next open","ok");
+    toast("Config saved to sheet");
+  }).catch(()=>{
+    // Fallback: try form-encoded
+    fetch(url,{ method:"POST",
+      body:"data="+encodeURIComponent(payload),
+      headers:{"Content-Type":"application/x-www-form-urlencoded"}
+    }).then(()=>{ setSyncStatus("✅ Saved to sheet","ok"); toast("Config saved"); })
+    .catch(()=>{ setSyncStatus("❌ Save failed — check URL and deploy settings","er"); toast("Save failed","er"); });
+  });
+}
+
+function pullFromSheet(){
+  const url=getSyncUrl();
+  if(!url){ toast("Enter the Sync URL first","wa"); return; }
+  setSyncStatus("Loading from sheet…","ld");
+  fetch(url+"?t="+Date.now())
+    .then(r=>r.json())
+    .then(remote=>{
+      if(!remote||!remote.codes){ setSyncStatus("No config found in sheet","er"); return; }
+      const localPin=CFG.adminPin, localSync=CFG.syncUrl;
+      CFG=remote;
+      CFG.adminPin=localPin; CFG.syncUrl=localSync;
+      saveCFG();
+      document.getElementById("adminPinF").value=CFG.adminPin;
+      renderCodeList();
+      setSyncStatus("✅ Loaded from sheet","ok");
+      toast("Config loaded from sheet");
+    }).catch(()=>{ setSyncStatus("❌ Load failed — check URL","er"); toast("Load failed","er"); });
+}
+
+function exportCfg(){
+  const b=new Blob([JSON.stringify(CFG,null,2)],{type:"application/json"});
+  const a=document.createElement("a"); a.href=URL.createObjectURL(b);
+  a.download="akai_config.json"; a.click(); toast("Config exported");
+}
+function importCfg(ev){
+  const f=ev.target.files[0]; if(!f) return;
+  const r=new FileReader();
+  r.onload=()=>{
+    try{
+      const c=JSON.parse(r.result);
+      if(!c.codes) throw 0;
+      const localSync=CFG.syncUrl;
+      CFG=c; if(!CFG.adminPin) CFG.adminPin="0000";
+      if(!CFG.syncUrl) CFG.syncUrl=localSync;
+      saveCFG();
+      document.getElementById("adminPinF").value=CFG.adminPin;
+      document.getElementById("syncUrlInput").value=CFG.syncUrl||"";
+      renderCodeList(); toast("Config imported");
+    }catch(e){ toast("Invalid file","er"); }
+  };
+  r.readAsText(f); ev.target.value="";
+}
+
+// ── CODE EDITOR ───────────────────────────────────────────────────
 let _eidx=-1;
 function openEditor(ci){
   _eidx=(typeof ci==="number")?ci:-1;
   document.getElementById("edTitle").textContent=_eidx>=0?"Edit Code":"Add Code";
   document.getElementById("edPages").innerHTML="";
-  if(_eidx>=0){ const c=CFG.codes[_eidx]; document.getElementById("editCode").value=c.code; (c.pages||[]).forEach(pg=>addPageRow(pg)); if(!c.pages||!c.pages.length) addPageRow(); }
-  else{ document.getElementById("editCode").value=""; addPageRow(); }
+  if(_eidx>=0){
+    const c=CFG.codes[_eidx];
+    document.getElementById("editCode").value=c.code;
+    (c.pages||[]).forEach(pg=>addPageRow(pg));
+    if(!c.pages||!c.pages.length) addPageRow();
+  }else{
+    document.getElementById("editCode").value="";
+    addPageRow();
+  }
   document.getElementById("edMod").classList.add("open");
 }
 function closeEditor(){ document.getElementById("edMod").classList.remove("open"); }
@@ -513,41 +799,42 @@ function addPageRow(pg){
   const wrap=document.getElementById("edPages");
   const row=document.createElement("div"); row.className="per";
 
-  // Header
   const hd=document.createElement("div"); hd.className="per-head";
   const hl=document.createElement("span"); hl.className="per-lbl"; hl.textContent="Page Tab";
-  const hd2=document.createElement("button"); hd2.className="xb xbr xbs"; hd2.textContent="Remove"; hd2.onclick=()=>row.remove();
-  hd.appendChild(hl); hd.appendChild(hd2);
+  const db=document.createElement("button"); db.className="xb xbr xbs"; db.textContent="Remove";
+  db.onclick=()=>row.remove();
+  hd.appendChild(hl); hd.appendChild(db);
 
-  // Page name input
   const ni=document.createElement("input"); ni.type="text"; ni.className="pg-name-inp er-pg-name";
-  ni.placeholder="Tab name (e.g. Challan Scanner)"; ni.value=pg.name||"";
+  ni.placeholder="Tab name (e.g. Challan Scanner, Match Sheet)"; ni.value=pg.name||"";
 
-  // URLs section
-  const ul=document.createElement("div"); ul.className="urls-lbl"; ul.textContent="Google Sheet / Website URLs";
+  const ul=document.createElement("div"); ul.className="urls-lbl"; ul.textContent="URLs (Google Sheet / Website)";
   const ulist=document.createElement("div"); ulist.className="url-list";
 
   function addUrlEntry(u){
     u=u||{label:"",url:""};
     const ue=document.createElement("div"); ue.className="url-entry";
     const li=document.createElement("input"); li.type="text"; li.className="ue-lbl er-url-lbl";
-    li.placeholder="Sub-tab label (e.g. Main Sheet, Stock View)"; li.value=u.label||"";
-    const ur=document.createElement("div"); ur.className="ue-url-row";
+    li.placeholder="Sub-tab label (e.g. Challan, Stock, Report)"; li.value=u.label||"";
+    const ur=document.createElement("div"); ur.className="ue-row";
     const ui=document.createElement("input"); ui.type="text"; ui.className="ue-url er-url-val";
-    ui.placeholder="https://script.google.com/…/exec or full website URL"; ui.value=u.url||"";
-    const db=document.createElement("button"); db.className="ue-del"; db.innerHTML="&times;"; db.title="Remove this URL"; db.onclick=()=>ue.remove();
-    ur.appendChild(ui); ur.appendChild(db);
+    ui.placeholder="https://script.google.com/…/exec  or  https://yoursite.com";
+    ui.value=u.url||"";
+    const dub=document.createElement("button"); dub.className="ue-del"; dub.innerHTML="&times;";
+    dub.title="Remove URL"; dub.onclick=()=>ue.remove();
+    ur.appendChild(ui); ur.appendChild(dub);
     ue.appendChild(li); ue.appendChild(ur);
     ulist.appendChild(ue);
   }
 
   ((pg.urls&&pg.urls.length)?pg.urls:[{label:"",url:""}]).forEach(addUrlEntry);
 
-  const addUBtn=document.createElement("button"); addUBtn.className="add-url-btn";
-  addUBtn.innerHTML="&#43; Add another Google Sheet / URL";
-  addUBtn.onclick=()=>addUrlEntry();
+  const aub=document.createElement("button"); aub.className="add-url-btn";
+  aub.innerHTML="&#43; Add another Google Sheet / URL";
+  aub.onclick=()=>addUrlEntry();
 
-  row.appendChild(hd); row.appendChild(ni); row.appendChild(ul); row.appendChild(ulist); row.appendChild(addUBtn);
+  row.appendChild(hd); row.appendChild(ni);
+  row.appendChild(ul); row.appendChild(ulist); row.appendChild(aub);
   wrap.appendChild(row);
 }
 
@@ -556,8 +843,10 @@ function saveCode(){
   if(!code){ toast("Enter an access code","er"); return; }
   const dup=CFG.codes.findIndex((c,i)=>String(c.code)===code&&i!==_eidx);
   if(dup>=0){ toast("That code already exists","er"); return; }
+
   const pageRows=[...document.querySelectorAll("#edPages .per")];
   if(!pageRows.length){ toast("Add at least one page tab","er"); return; }
+
   const pages=[];
   for(const row of pageRows){
     const name=row.querySelector(".er-pg-name").value.trim();
@@ -569,31 +858,34 @@ function saveCode(){
       const label=ue.querySelector(".er-url-lbl").value.trim();
       const url=ue.querySelector(".er-url-val").value.trim();
       if(!url){ toast('"'+name+'" has a blank URL — fill it or remove it',"er"); return; }
-      urls.push({label:label||name, url});
+      urls.push({label:label||name,url});
     }
     pages.push({name,urls});
   }
+
   if(_eidx>=0) CFG.codes[_eidx]={code,pages};
   else CFG.codes.push({code,pages});
   saveCFG(); closeEditor(); renderCodeList();
-  toast("Code saved \u2705");
+  toast("Code saved ✅");
 }
 
-/* ── LOGO IMAGE (optional) ── */
+// ── OPTIONAL LOGO ─────────────────────────────────────────────────
 (function(){
   const img=new Image();
   img.onload=()=>{
     const box=document.getElementById("logoBox");
     const fb=document.getElementById("logoFB"); if(fb) fb.style.display="none";
     const i=document.createElement("img"); i.src="assets/logo.png";
-    i.style.cssText="pointer-events:none;position:relative;z-index:1;width:100%;height:100%;object-fit:cover";
-    box.insertBefore(i, box.querySelector(".click-ring").nextSibling);
+    i.style.pointerEvents="none";
+    box.insertBefore(i,box.querySelector(".click-ring").nextSibling);
   };
   img.onerror=()=>{};
   img.src="assets/logo.png";
 })();
 
+// ── INIT ──────────────────────────────────────────────────────────
 upNet();
+document.getElementById("frameLoader").classList.add("gone");
 </script>
 </body>
 </html>
